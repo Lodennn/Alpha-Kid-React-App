@@ -22,8 +22,6 @@ const Exam = (props) => {
 
   const { exam, workshop, isExamDone, examHasBeenTaken } = props;
 
-  // console.log("examHasBeenTaken", examHasBeenTaken);
-
   const numberOfQuestions = exam.length;
 
   const examPassingScore = numberOfQuestions <= 2 ? 50 : 75;

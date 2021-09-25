@@ -187,7 +187,6 @@ export const updateWorkshop = async (request) => {
   try {
     const workshopRef = doc(db, "workshops", request.workshopId);
     const updatedWorkshop = await updateDoc(workshopRef, request.data);
-    console.log("updatedWorkshop: ", updatedWorkshop);
   } catch (err) {
     throw err;
   }

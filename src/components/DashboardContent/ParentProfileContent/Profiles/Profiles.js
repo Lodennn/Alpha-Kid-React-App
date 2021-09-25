@@ -15,8 +15,6 @@ const Profiles = () => {
     user: { id: userId },
   } = useSelector((state) => state.user);
 
-  console.log("Profiles: ", userId);
-
   const { profiles, activeUserProfile } = useSelector((state) => state.profile);
 
   const [activeProfile, setActiveProfile] = useState("");
@@ -33,7 +31,6 @@ const Profiles = () => {
 
   useEffect(() => {
     fetchProfilesRequest(userId).then((profiles) => {
-      console.log("profiles FETCHED: ", profiles);
       if (profiles.length === 0) return;
       dispatch(profilesActions.getAllProfiles(profiles));
       setActiveProfile(activeUserProfile.name);
