@@ -8,7 +8,7 @@ import { profilesActions } from "../store/profiles/profiles-slice";
 const HomePage = () => {
   const { profiles } = useSelector((state) => state.profile);
   const { activeUserProfile } = useSelector((state) => state.profile);
-  // const { name: activeKidName } = activeUserProfile;
+  console.log("activeUserProfile: ", activeUserProfile);
   const {
     user: { id: userId, type },
   } = useSelector((state) => state.user);
@@ -21,7 +21,7 @@ const HomePage = () => {
     if (type === "Parent") {
       fetchProfilesRequest(userId).then((profiles) => {
         dispatch(profilesActions.getAllProfiles(profiles));
-        if (profiles.length !== 0 && activeUserProfile) {
+        if (profiles.length > 0 && activeUserProfile) {
           dispatch(profilesActions.setActiveProfile(activeUserProfile));
         }
       });
