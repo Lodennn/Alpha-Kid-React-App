@@ -63,6 +63,7 @@ const Profiles = () => {
         <ul className={`${classes["profiles__list"]} list-unstyled`}>
           {!isLoading &&
             activeProfile &&
+            profiles.length > 0 &&
             profiles.map((profile, index) => {
               return (
                 <li
