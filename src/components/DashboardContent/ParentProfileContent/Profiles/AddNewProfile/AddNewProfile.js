@@ -57,10 +57,10 @@ const AddNewProfile = (props) => {
         image: userProfileImagePath,
       };
       sendProfileRequest(profileData)
-        .then((_) => {
-          props.changeActiveUserProfile(profileData);
-          dispatch(profilesActions.addProfile(profileData));
-          dispatch(profilesActions.setActiveProfile(profileData));
+        .then((data) => {
+          props.changeActiveUserProfile(data);
+          dispatch(profilesActions.addProfile(data));
+          dispatch(profilesActions.setActiveProfile(data));
           dispatch(
             snackbarActions.showSnackBar({
               type: "success",

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { fetchAllUsers } from "./store/users/user.slice";
@@ -16,19 +16,23 @@ import AuthPage from "./Pages/AuthPage";
 import PageNotFound from "./Pages/PageNotFound";
 import ScrollToTop from "./components/UI/ScrollToTop";
 import SnackBar from "./components/UI/SnackBar";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import PrivateRoute from "./Pages/PrivateRoute/PrivateRoute";
+import MiddlewareRoute from "./Pages/MiddlewareRoute";
 
 function App() {
   const snackbar = useSelector((state) => state.snackbar);
 
+  const { activeUserProfile } = useSelector((state) => state.profile);
+
   const dispatch = useDispatch();
+
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   // Fetching All Users From Firebase
   useEffect(() => {
     dispatch(fetchAllUsers());
   }, [dispatch]);
 
-  const { isLoggedIn } = useSelector((state) => state.user);
   return (
     <ScrollToTop>
       <SnackBar type={snackbar.type} message={snackbar.message} />
@@ -41,7 +45,13 @@ function App() {
           <WorkshopsPage />
         </PrivateRoute>
         <PrivateRoute path="/workshops/:workshopId">
-          <SingleWorkshopPage />
+          {!!activeUserProfile && <SingleWorkshopPage />}
+          {!!!activeUserProfile && (
+            <>
+              <Redirect to="/workshops" />
+              <MiddlewareRoute type="error" message="Please add kid profile" />
+            </>
+          )}
         </PrivateRoute>
         <PrivateRoute path="/games" exact>
           <GamesPage />

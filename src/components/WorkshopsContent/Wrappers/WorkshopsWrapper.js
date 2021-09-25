@@ -36,9 +36,9 @@ const WorkshopsWrapper = () => {
             );
           })}
       </Wrapper>
-      <button type="button" className="btn btn--default btn--load">
+      {/* <button type="button" className="btn btn--default btn--load">
         Load more
-      </button>
+      </button> */}
     </Wrapper>
   );
 };

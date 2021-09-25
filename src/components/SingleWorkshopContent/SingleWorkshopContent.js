@@ -28,6 +28,8 @@ const SingleWorkshopContent = () => {
 
   const { id: kidProfileId } = activeUserProfile;
 
+  console.log("workshopId: ", workshopId, "kidId: ", kidProfileId);
+
   const examHasBeenTaken =
     examSheet.kidProfileId === kidProfileId &&
     examSheet.workshopId === workshopId;

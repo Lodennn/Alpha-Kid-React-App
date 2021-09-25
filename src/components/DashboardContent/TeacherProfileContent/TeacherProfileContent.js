@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useHttp from "../../../hooks/use-http";
 import AddExam from "../../../Pages/AddExam";
 import { workshopActions } from "../../../store/workshops/workshop-slice";
-import PrivateRoute from "../../PrivateRoute/PrivateRoute";
+import PrivateRoute from "../../../Pages/PrivateRoute/PrivateRoute";
 import SlickCarousal from "../../SlickCarousal/SlickCarousal";
 import Alert from "../../UI/Alert";
 import Breadcrumb from "../../UI/Breadcrumb";

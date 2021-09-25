@@ -6,8 +6,7 @@ import { fetchAllProfilesFS } from "../lib/api";
 import { profilesActions } from "../store/profiles/profiles-slice";
 
 const HomePage = () => {
-  const { profiles } = useSelector((state) => state.profile);
-  const { activeUserProfile } = useSelector((state) => state.profile);
+  const { profiles, activeUserProfile } = useSelector((state) => state.profile);
 
   const {
     user: { id: userId, type },
