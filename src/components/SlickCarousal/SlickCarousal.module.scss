@@ -1,0 +1,31 @@
+@import "../../styles/Variables.scss";
+
+.slider {
+  font-size: 3.6rem;
+  line-height: 10rem;
+  padding-bottom: 2%;
+  position: relative;
+  text-align: center;
+  &__slide-wrapper {
+    height: 25rem;
+    padding-inline: 1.5rem;
+  }
+  &__slide-img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 2rem;
+  }
+  &__slide-title {
+    text-align: left;
+    font-size: 2.5rem;
+    line-height: 1;
+    margin-top: 2rem;
+    font-family: $font-secondary;
+    letter-spacing: 0.1rem;
+    color: $color-primary-text;
+  }
+  svg {
+    font-size: 2rem;
+  }
+}

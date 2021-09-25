@@ -1,0 +1,26 @@
+@import "../../../styles/Variables.scss";
+
+.uppernav {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  &__style {
+    flex: 1;
+    &--1 {
+      background-color: $color-primary;
+    }
+    &--2 {
+      background-color: $color-secondary;
+    }
+    &--3 {
+      background-color: $color-tertiary;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-right: 3rem;
+    }
+  }
+  svg {
+    transform: translateY(2px);
+  }
+}

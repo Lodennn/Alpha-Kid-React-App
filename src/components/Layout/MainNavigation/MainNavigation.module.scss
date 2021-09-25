@@ -1,0 +1,40 @@
+@import "../../../styles/Variables.scss";
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $color-white;
+  height: 10rem;
+
+  &__list {
+    // flex: 0 0 35%;
+  }
+  &__item {
+    margin-right: 1.5rem;
+  }
+  &__link {
+    display: grid;
+    grid-template-columns: min-content max-content;
+    color: $color-grey-dark;
+    background: $color-white;
+    box-shadow: 0 0 0.5rem $color-grey-dark-2;
+    font-size: 2rem;
+  }
+  &__icon {
+    margin-right: 1rem;
+    &--1 {
+      fill: $color-primary;
+      font-size: 2.5rem;
+    }
+    &--2 {
+      fill: $color-secondary;
+      font-size: 2.5rem;
+    }
+    &--3 {
+      fill: $color-tertiary;
+      font-size: 2rem;
+      margin-top: 0.2rem;
+    }
+  }
+}

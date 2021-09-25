@@ -1,0 +1,67 @@
+@import "../../styles/Variables.scss";
+
+.card {
+  &-main {
+    position: relative;
+    height: 25rem;
+    border-radius: 2rem;
+    &__img {
+      height: 100%;
+      object-fit: cover;
+      border-radius: 2rem;
+    }
+    &--game,
+    &--video {
+      position: absolute;
+      bottom: 2rem;
+      right: 1rem;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $color-white;
+      font-size: 2rem;
+    }
+    &--game {
+      background-color: $color-secondary;
+    }
+    &--video {
+      background-color: $color-tertiary;
+    }
+  }
+  &--workshop {
+    position: relative;
+    height: 30rem;
+  }
+  &__data {
+    position: absolute;
+    background: $color-white;
+    width: 100%;
+    bottom: 0;
+    height: 40%;
+    padding: 1rem 3rem;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: min-content 2.5rem 1fr;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    &--name {
+      font-size: 3rem;
+      font-family: $font-secondary;
+      color: $color-primary-text;
+    }
+    & .btn {
+      justify-self: end;
+      align-self: center;
+      font-size: 2rem;
+      grid-row: 2 / 3;
+      grid-column: 2;
+    }
+  }
+}
+
+.btn {
+  color: $color-white;
+}

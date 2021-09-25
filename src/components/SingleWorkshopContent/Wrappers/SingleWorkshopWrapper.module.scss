@@ -1,0 +1,10 @@
+@import "../../../styles/Variables.scss";
+@import "../../../styles/Mixins.scss";
+
+.single-workshop-wrapper {
+  @include sectionWrapper($color-primary, "../assets/page-pattern.jpg", false);
+}
+
+.single-workshop-wrapper iframe {
+  height: 40rem;
+}

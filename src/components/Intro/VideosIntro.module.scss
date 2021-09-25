@@ -1,0 +1,7 @@
+@import "../../styles/Variables.scss";
+@import "../../styles/Mixins.scss";
+
+.videos-intro {
+  @include sectionWrapper($color-secondary, "../assets/gifs/kids-pattern.gif");
+  margin-block: 3rem;
+}

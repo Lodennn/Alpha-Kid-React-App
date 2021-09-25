@@ -1,0 +1,17 @@
+@import "./Variables.scss";
+
+@mixin sectionWrapper($color, $image, $bgImage: true) {
+  @if $bgImage == true {
+    background-image: linear-gradient(
+        to right,
+        rgba($color, 0.8),
+        rgba($color, 0.8)
+      ),
+      url($image);
+    background-size: cover;
+    background-position: center center;
+  } @else {
+    background-color: $color;
+  }
+  min-height: 30vh;
+}

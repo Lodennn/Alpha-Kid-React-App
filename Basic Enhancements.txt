@@ -1,0 +1,7 @@
+1 - Clear Warnings
+2 - Check the functionality of adding profile and login and signup
+
+CORE===
+
+add activeUserProfile
+and fetch user's profiles data

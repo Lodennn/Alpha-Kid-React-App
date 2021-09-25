@@ -1,0 +1,14 @@
+@import "../../../styles/Variables.scss";
+@import "../../../styles/Mixins.scss";
+
+.games-wrapper {
+  @include sectionWrapper($color-secondary, "../assets/page-pattern.jpg");
+}
+
+.single-games-wrapper {
+  @include sectionWrapper(
+    $color-secondary,
+    "../assets/page-pattern.jpg",
+    false
+  );
+}

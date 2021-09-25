@@ -1,0 +1,8 @@
+@import "../../../styles/Variables.scss";
+@import "../../../styles/Mixins.scss";
+
+.workshops-wrapper {
+  @include sectionWrapper($color-primary, "../assets/page-pattern.jpg");
+  text-align: center;
+  padding-bottom: 3rem;
+}

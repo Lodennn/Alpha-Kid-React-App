@@ -1,0 +1,20 @@
+@import "../../styles/Variables.scss";
+
+.half-preview {
+  position: relative;
+  display: grid;
+  &__image {
+    height: 35rem;
+  }
+  &__img {
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+.btn {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+}

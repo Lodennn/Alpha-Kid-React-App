@@ -1,0 +1,19 @@
+@import "../../../styles/Variables.scss";
+
+.features {
+  font-family: $font-primary;
+}
+
+.feature {
+  text-align: center;
+  display: grid;
+  row-gap: 1.5rem;
+  &__image {
+    width: 20rem;
+    margin: auto;
+  }
+  &__text {
+    font-size: 1.7rem;
+    color: $color-grey-dark-4;
+  }
+}

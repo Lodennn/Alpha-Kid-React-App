@@ -1,0 +1,19 @@
+@import "../../../styles/Variables.scss";
+
+.footer {
+  background-color: $color-primary-dark-2;
+  color: $color-white;
+  &__caption {
+    font-size: 4rem;
+    font-weight: 200;
+  }
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+  &__link {
+    font-size: 1.7rem;
+    color: inherit;
+  }
+}

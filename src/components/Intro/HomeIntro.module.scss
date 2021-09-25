@@ -1,0 +1,14 @@
+@import "../../styles/Variables.scss";
+@import "../../styles/Mixins.scss";
+
+.home-intro {
+  @include sectionWrapper($color-secondary, "../assets/gifs/kids-pattern.gif");
+  margin-block: 3rem;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content max-content;
+  gap: 3rem;
+}

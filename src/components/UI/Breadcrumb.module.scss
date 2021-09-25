@@ -1,0 +1,14 @@
+@import "../../styles/Variables.scss";
+
+.breadcrumb {
+  background-color: $color-primary-dark;
+  color: $color-white;
+  font-size: 1.5rem;
+  a {
+    color: $color-primary;
+  }
+}
+
+.container {
+  padding-block: 1rem;
+}

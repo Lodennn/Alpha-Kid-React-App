@@ -1,0 +1,6 @@
+@import "../../../styles/Variables.scss";
+@import "../../../styles/Mixins.scss";
+
+.home-wrapper {
+  @include sectionWrapper($color-primary, "../assets/page-pattern.jpg");
+}

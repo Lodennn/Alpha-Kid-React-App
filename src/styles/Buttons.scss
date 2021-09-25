@@ -1,0 +1,63 @@
+@import "./Variables";
+
+%primaryButtons {
+  color: $color-white;
+  font-size: 3rem;
+  font-family: $font-secondary;
+  padding: 1rem 4rem !important;
+}
+
+// DEFAULT BTN STYLING
+.btn,
+.btn:link,
+.btn:visited {
+  text-decoration: none;
+  line-height: 1.6;
+  padding: 1rem 2rem;
+}
+
+.btn-login {
+  font-size: 1.5rem;
+  color: $color-white;
+}
+
+.btn {
+  &--primary,
+  &--secondary,
+  &--tertiary {
+    @extend %primaryButtons;
+  }
+  &--primary {
+    background-color: $color-primary;
+    box-shadow: 0 0.5rem 0.1rem $color-primary-dark;
+    i {
+      color: $color-primary;
+    }
+  }
+  &--secondary {
+    background-color: $color-secondary;
+    box-shadow: 0 0.5rem 0.1rem $color-secondary-dark;
+    i {
+      color: $color-secondary;
+    }
+  }
+  &--tertiary {
+    background-color: $color-tertiary;
+    box-shadow: 0 0.5rem 0.1rem $color-tertiary-dark;
+    i {
+      color: $color-tertiary;
+    }
+  }
+  &--default {
+    background-color: $color-grey-light;
+  }
+  &--rounded {
+    border-radius: 10rem;
+  }
+  &--load {
+    width: 20rem;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    border: 2px dashed $color-grey-dark-3;
+  }
+}

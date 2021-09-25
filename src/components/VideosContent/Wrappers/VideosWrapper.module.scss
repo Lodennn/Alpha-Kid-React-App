@@ -1,0 +1,10 @@
+@import "../../../styles/Variables.scss";
+@import "../../../styles/Mixins.scss";
+
+.videos-wrapper {
+  @include sectionWrapper($color-tertiary, "../assets/page-pattern.jpg");
+}
+
+.single-videos-wrapper {
+  @include sectionWrapper($color-tertiary, "../assets/page-pattern.jpg", false);
+}

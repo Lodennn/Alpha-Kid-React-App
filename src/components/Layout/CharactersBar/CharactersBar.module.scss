@@ -1,0 +1,22 @@
+@import "../../../styles/Variables.scss";
+
+.characters {
+  background-color: $color-primary-light;
+  height: 12rem;
+
+  &__list {
+  }
+  &__item {
+    width: 9.5rem;
+    height: 9.5rem;
+    margin-right: 3rem;
+    border-radius: 50%;
+    background-color: $color-white;
+    border: 2px solid $color-grey-dark-3;
+  }
+  &__img {
+    object-fit: contain;
+    border-radius: 50%;
+    height: 100%;
+  }
+}

@@ -1,0 +1,40 @@
+@import "../../../../styles/Variables.scss";
+
+.profiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min-content, 1fr));
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    column-gap: 2.5rem;
+  }
+  &__item {
+    position: relative;
+  }
+  &__image {
+    width: 10rem;
+    height: 10rem;
+  }
+  &__img {
+    border: 0.4rem solid rgba($color-primary-light, 0.2);
+    &--active {
+      border: 0.4rem solid $color-primary-light;
+    }
+  }
+  &__icon {
+    position: absolute;
+    bottom: 0;
+    right: 1px;
+    background: $color-white;
+    box-shadow: inset 1px 1px 1px $color-grey-light,
+      inset -1px -1px 1px $color-grey-light;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    color: $color-primary-text;
+  }
+}

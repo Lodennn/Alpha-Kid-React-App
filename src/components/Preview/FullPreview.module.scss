@@ -1,0 +1,44 @@
+@import "../../styles/Variables.scss";
+
+.full-preview {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  background-color: $color-white;
+  &__image {
+    height: 35rem;
+  }
+  &__img {
+    object-fit: cover;
+    height: 100%;
+  }
+  &__data {
+    font-family: $font-secondary;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    font-size: 4rem;
+    row-gap: 3rem;
+    display: grid;
+    &--name {
+      letter-spacing: 2px;
+    }
+    &--label {
+      letter-spacing: 1.5rem;
+      span {
+        &:first-child {
+          color: $color-primary;
+        }
+        &:nth-child(2) {
+          color: $color-secondary;
+        }
+        &:last-child {
+          color: $color-tertiary;
+        }
+      }
+    }
+  }
+}
+
+.btn {
+}

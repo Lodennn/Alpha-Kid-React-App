@@ -1,0 +1,18 @@
+@import "../../styles/Variables.scss";
+
+.Button {
+  background-color: $color-primary;
+  padding: 1.5rem 2rem;
+  color: $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 20rem;
+  font-family: $font-primary;
+  cursor: pointer;
+  & svg {
+    margin-right: 0.5rem;
+    transform: translateY(-0.15rem);
+  }
+}

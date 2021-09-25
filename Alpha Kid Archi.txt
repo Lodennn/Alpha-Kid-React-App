@@ -1,0 +1,27 @@
+Pages
+	1 - HomePage
+	2 - Workshops
+	3 - Videos
+	4 - Games
+	5 - Single Workshop
+	6 - Single Video
+	7 - Single Games
+	8 - AuthPage
+	9 - Shop
+	10 - Single Product
+
+Components
+	1 - Uppernav X
+	2 - Navigation
+	3 - Characters Bar
+	4 - Full Preview
+	5 - Half Preview
+	6 - Main Card
+	7 - Workshop
+	8 - Buttons
+	9 - Logo
+	10 - Footer
+	11 - Product Card
+	...
+
+---------------------
