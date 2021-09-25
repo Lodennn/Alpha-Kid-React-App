@@ -23,6 +23,8 @@ const HomePage = () => {
         dispatch(profilesActions.getAllProfiles(profiles));
         if (profiles.length !== 0 && activeUserProfile) {
           dispatch(profilesActions.setActiveProfile(activeUserProfile));
+        } else if (profiles.length !== 0 && !!!activeUserProfile.name) {
+          dispatch(profilesActions.setActiveProfile(profiles[0]));
         }
       });
     }
