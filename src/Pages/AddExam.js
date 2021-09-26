@@ -19,11 +19,21 @@ import { snackbarActions } from "../store/snackbar/snackbar-slice";
 const AddExam = (props) => {
   const formRef = useRef();
 
+  const firstAnswerRef = useRef();
+
+  const secondAnswerRef = useRef();
+
+  const thirdAnswerRef = useRef();
+
   const dispatch = useDispatch();
 
   const [currentQuestion, setCurrentQuestion] = useState(1);
 
   const [questions, setQuestions] = useState([currentQuestion]);
+
+  const [questionAnswers, setQuestionAnswers] = useState([]);
+
+  let answer = {};
 
   const params = useParams();
 
@@ -44,7 +54,41 @@ const AddExam = (props) => {
     fetchSingleWorkshop(workshopId);
   }, [workshopId, fetchSingleWorkshop]);
 
+  const firstAnswerChangeHandler = (e) => {
+    if (firstAnswerRef?.current?.value) {
+      answer["answerA"] = e.target.value;
+    }
+    if (secondAnswerRef?.current?.value && thirdAnswerRef?.current?.value) {
+      setQuestionAnswers((state) => state.concat(answer));
+    }
+  };
+  const secondAnswerChangeHandler = (e) => {
+    if (secondAnswerRef?.current?.value) {
+      answer["answerB"] = e.target.value;
+    }
+    if (firstAnswerRef?.current?.value && thirdAnswerRef?.current?.value) {
+      setQuestionAnswers((state) => state.concat(answer));
+    }
+  };
+  const thirdAnswerChangeHandler = (e) => {
+    if (thirdAnswerRef?.current?.value) {
+      answer["answerC"] = e.target.value;
+    }
+    if (firstAnswerRef?.current?.value && secondAnswerRef?.current?.value) {
+      setQuestionAnswers((state) => state.concat(answer));
+    }
+  };
+
   const addNewQuestionHandler = () => {
+    if (!questionAnswers[currentQuestion - 1]) {
+      dispatch(
+        snackbarActions.showSnackBar({
+          type: "error",
+          message: "Please fill all question fields",
+        })
+      );
+      return;
+    }
     setCurrentQuestion((state) => state + 1);
     setQuestions((state) => {
       return state.concat(currentQuestion + 1);
@@ -110,7 +154,7 @@ const AddExam = (props) => {
         )}
         <div className="form-grid">
           {/* Question */}
-          {questions.map((q) => {
+          {questions.map((q, questionIndex) => {
             return (
               <div key={q} className="form-control">
                 <Input
@@ -118,6 +162,7 @@ const AddExam = (props) => {
                     type: "text",
                     name: `q${q}-question`,
                     id: `q${q}-question`,
+                    required: true,
                   }}
                   label={`Question ${q}`}
                 />
@@ -126,25 +171,44 @@ const AddExam = (props) => {
                   label="Question Image [OPTIONAL]"
                 />
                 <Input
-                  input={{ type: "text", name: `q${q}-answerA`, id: "answer1" }}
+                  input={{
+                    type: "text",
+                    name: `q${q}-answerA`,
+                    id: "answer1",
+                    onBlur: firstAnswerChangeHandler,
+                    required: true,
+                  }}
                   label="Answer 1 [A]"
-                />
-                <Input
-                  input={{ type: "text", name: `q${q}-answerB`, id: "answer2" }}
-                  label="Answer 2 [B]"
-                />
-                <Input
-                  input={{ type: "text", name: `q${q}-answerC`, id: "answer3" }}
-                  label="Answer 3 [C]"
+                  ref={firstAnswerRef}
                 />
                 <Input
                   input={{
                     type: "text",
-                    name: `q${q}-rightAnswer`,
-                    id: "rightAnswer",
+                    name: `q${q}-answerB`,
+                    id: "answer2",
+                    onBlur: secondAnswerChangeHandler,
+                    required: true,
                   }}
-                  label="Right Answer [A, B, C]"
+                  label="Answer 2 [B]"
+                  ref={secondAnswerRef}
                 />
+                <Input
+                  input={{
+                    type: "text",
+                    name: `q${q}-answerC`,
+                    id: "answer3",
+                    onBlur: thirdAnswerChangeHandler,
+                    required: true,
+                  }}
+                  label="Answer 3 [C]"
+                  ref={thirdAnswerRef}
+                />
+                <label>Right Answer</label>
+                <select name={`q${q}-rightAnswer`}>
+                  <option>{questionAnswers[questionIndex]?.answerA}</option>
+                  <option>{questionAnswers[questionIndex]?.answerB}</option>
+                  <option>{questionAnswers[questionIndex]?.answerC}</option>
+                </select>
               </div>
             );
           })}
