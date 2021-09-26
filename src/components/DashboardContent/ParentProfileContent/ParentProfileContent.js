@@ -4,7 +4,7 @@ import { useRouteMatch } from "react-router";
 import useHttp from "../../../hooks/use-http";
 import { fetchDoneWorkshops, fetchExamSheet } from "../../../lib/api";
 import PrivateRoute from "../../../Pages/PrivateRoute/PrivateRoute";
-import ExamSheet from "../../ExamSheet";
+import ExamSheet from "../../../Pages/ExamSheet";
 import Breadcrumb from "../../UI/Breadcrumb";
 import CardInfo from "../../UI/CardInfo";
 import LoadingSpinner from "../../UI/LoadingSpinner";

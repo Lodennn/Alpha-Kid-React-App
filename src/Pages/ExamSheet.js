@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import useHttp from "../hooks/use-http";
 import { fetchExamSheet } from "../lib/api";
-import Modal from "./UI/Modal";
+import Modal from "../components/UI/Modal";
 
 const ExamSheet = (props) => {
   const {

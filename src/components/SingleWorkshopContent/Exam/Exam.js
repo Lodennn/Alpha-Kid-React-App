@@ -160,7 +160,7 @@ const Exam = (props) => {
                     <input
                       type="radio"
                       name={`choosenAnswer${index}`}
-                      value={"A"}
+                      value={answerA}
                       onChange={getAnswerHandler.bind(null, examData)}
                       className={classes["exam__answer--value"]}
                     />{" "}
@@ -172,7 +172,7 @@ const Exam = (props) => {
                     <input
                       type="radio"
                       name={`choosenAnswer${index}`}
-                      value={"B"}
+                      value={answerB}
                       onChange={getAnswerHandler.bind(null, examData)}
                       className={classes["exam__answer--value"]}
                     />{" "}
@@ -184,7 +184,7 @@ const Exam = (props) => {
                     <input
                       type="radio"
                       name={`choosenAnswer${index}`}
-                      value={"C"}
+                      value={answerC}
                       onChange={getAnswerHandler.bind(null, examData)}
                       className={classes["exam__answer--value"]}
                     />{" "}
