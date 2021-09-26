@@ -29,8 +29,7 @@ const SingleWorkshopContent = () => {
   const { id: kidProfileId } = activeUserProfile;
 
   const examHasBeenTaken =
-    examSheet.kidProfileId === kidProfileId &&
-    examSheet.workshopId === workshopId;
+    examSheet.profileId === kidProfileId && examSheet.workshopId === workshopId;
 
   useEffect(() => {
     fetchSingleWorkshop(workshopId);

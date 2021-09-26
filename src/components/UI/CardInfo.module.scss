@@ -1,0 +1,38 @@
+@import "../../styles/Variables.scss";
+
+.card-info {
+  background: $color-white;
+  box-shadow: 0px 1rem 2rem $color-grey-light;
+  border-radius: 3px;
+  &__image {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  &__img {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    object-fit: cover;
+    height: 100%;
+  }
+  &__data {
+    padding: 1rem;
+  }
+  &__title {
+    font-size: 2.5rem;
+    color: $color-primary-text;
+    margin-bottom: 2rem;
+  }
+  &__btn {
+    background: none;
+    border: none;
+    font-weight: bold;
+    margin-right: 2rem;
+    transition: all 0.5s ease;
+    padding: 0.7rem 0.7rem;
+    cursor: pointer;
+    &:hover {
+      background: $color-primary-light;
+      color: $color-white;
+    }
+  }
+}

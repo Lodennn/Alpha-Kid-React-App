@@ -225,7 +225,7 @@ export const fetchExamSheet = async (requestData) => {
     const examSheetRef = collection(db, "examSheets");
     const q = query(
       examSheetRef,
-      where("kidProfileId", "==", kidProfileId),
+      where("profileId", "==", kidProfileId),
       where("workshopId", "==", workshopId)
     );
     const querySnap = await getDocs(q);
