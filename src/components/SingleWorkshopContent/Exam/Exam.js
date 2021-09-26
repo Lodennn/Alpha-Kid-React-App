@@ -100,7 +100,7 @@ const Exam = (props) => {
       kidName: activeUserProfile.name,
       workshopName: workshop.name,
       result: `${examResult} of ${numberOfQuestions}`,
-      passStatus: kidSuccessStatus ? "Passed 😍" : "Failed 😥",
+      passStatus: kidSuccessStatus ? true : false,
       profileId: activeUserProfile.id,
       workshopId: workshop.id,
     };

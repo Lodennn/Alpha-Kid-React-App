@@ -26,15 +26,15 @@ const SingleWorkshopContent = () => {
 
   const { activeUserProfile } = useSelector((state) => state.profile);
 
-  const { id: kidProfileId } = activeUserProfile;
+  const { id: profileId } = activeUserProfile;
 
   const examHasBeenTaken =
-    examSheet.profileId === kidProfileId && examSheet.workshopId === workshopId;
+    examSheet.profileId === profileId && examSheet.workshopId === workshopId;
 
   useEffect(() => {
     fetchSingleWorkshop(workshopId);
-    fetchExamSheetRequest({ kidProfileId, workshopId });
-  }, [workshopId, fetchSingleWorkshop, kidProfileId, fetchExamSheetRequest]);
+    fetchExamSheetRequest({ profileId, workshopId });
+  }, [workshopId, fetchSingleWorkshop, profileId, fetchExamSheetRequest]);
 
   const { lessons } = workshop;
 

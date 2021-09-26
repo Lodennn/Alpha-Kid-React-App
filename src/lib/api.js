@@ -221,11 +221,12 @@ export const insertExamSheet = async (requestData) => {
 
 export const fetchExamSheet = async (requestData) => {
   try {
-    const { kidProfileId, workshopId } = requestData;
+    const { profileId, workshopId } = requestData;
+    console.log("requestData: ", requestData);
     const examSheetRef = collection(db, "examSheets");
     const q = query(
       examSheetRef,
-      where("profileId", "==", kidProfileId),
+      where("profileId", "==", profileId),
       where("workshopId", "==", workshopId)
     );
     const querySnap = await getDocs(q);
