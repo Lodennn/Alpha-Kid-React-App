@@ -2,8 +2,25 @@ import Card from "../UI/Card";
 import images from "../../assets";
 import classes from "./SingleVideoIntro.module.scss";
 import { Link } from "react-router-dom";
+import useHttp from "../../hooks/use-http";
+import { useParams } from "react-router";
+import { fetchSingleVideo } from "../../lib/api";
+import { useEffect } from "react";
 
 const SingleVideoIntro = () => {
+  const params = useParams();
+
+  const { videoId } = params;
+
+  console.log("videoId", videoId);
+
+  const { data: video, sendHttpRequest: fetchSingleVideoRequest } =
+    useHttp(fetchSingleVideo);
+
+  useEffect(() => {
+    fetchSingleVideoRequest(videoId);
+  }, [videoId, fetchSingleVideoRequest]);
+
   return (
     <section className={`${classes["single-video-intro"]}`}>
       <div className={`${classes.container} container`}>
@@ -11,7 +28,7 @@ const SingleVideoIntro = () => {
           <iframe
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/69MU0tLNoRQ"
+            src={video.video}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

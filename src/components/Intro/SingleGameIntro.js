@@ -2,8 +2,27 @@ import Card from "../UI/Card";
 import images from "../../assets";
 import classes from "./SingleGameIntro.module.scss";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import useHttp from "../../hooks/use-http";
+import { useParams } from "react-router";
+import { fetchSingleGame } from "../../lib/api";
 
 const SingleGameIntro = () => {
+  const params = useParams();
+
+  const { gameId } = params;
+
+  console.log("gameId", gameId);
+
+  const { data: game, sendHttpRequest: fetchSingleGameRequest } =
+    useHttp(fetchSingleGame);
+
+  useEffect(() => {
+    fetchSingleGameRequest(gameId);
+  }, [gameId, fetchSingleGameRequest]);
+
+  console.log("game: ", game);
+
   return (
     <section className={`${classes["single-game-intro"]}`}>
       <div className={`${classes.container} container`}>
@@ -11,7 +30,7 @@ const SingleGameIntro = () => {
           <iframe
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/69MU0tLNoRQ"
+            src={game.game}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

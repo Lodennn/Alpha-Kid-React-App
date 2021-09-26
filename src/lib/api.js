@@ -279,3 +279,64 @@ export const fetchDoneWorkshops = async (profileId) => {
     throw err;
   }
 };
+
+export const fetchGames = async () => {
+  try {
+    const gamesRef = collection(db, "games");
+    const querySnapshot = await getDocs(gamesRef);
+    const gamesData = [];
+    querySnapshot.forEach((game) => {
+      gamesData.push(game.data());
+    });
+    console.log("gamesData", gamesData);
+    return gamesData;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const fetchVideos = async () => {
+  try {
+    const videosRef = collection(db, "videos");
+    const querySnapshot = await getDocs(videosRef);
+    const videosData = [];
+    querySnapshot.forEach((video) => {
+      videosData.push(video.data());
+    });
+    console.log("videosData", videosData);
+    return videosData;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const fetchSingleGame = async (gameId) => {
+  try {
+    const gameRef = doc(db, "games", gameId);
+    const docSnap = await getDoc(gameRef);
+    return docSnap.data();
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const fetchSingleVideo = async (videoId) => {
+  try {
+    const videoRef = doc(db, "videos", videoId);
+    const docSnap = await getDoc(videoRef);
+    return docSnap.data();
+  } catch (err) {
+    throw err;
+  }
+};
+
+// export const fetchSameCategory = async (requestData) => {
+//   try {
+//     const { collection, id } = requestData;
+//     const videoRef = doc(db, collection, videoId);
+//     const docSnap = await getDoc(videoRef);
+//     return docSnap.data();
+//   } catch (err) {
+//     throw err;
+//   }
+// };

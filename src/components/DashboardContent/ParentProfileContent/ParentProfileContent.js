@@ -45,6 +45,7 @@ const ParentProfileContent = () => {
         <h2 className="section-title">Dashboard</h2>
         <Profiles />
         <Wrapper className="profile__workshops">
+          <h2>Finished Workshops</h2>
           <Wrapper container="container container-grid-3x">
             {isLoading && <LoadingSpinner />}
             {!isLoading &&

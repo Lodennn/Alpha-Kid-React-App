@@ -3,8 +3,20 @@ import Card from "../../UI/Card";
 import classes from "./VideosWrapper.module.scss";
 import images from "../../../assets";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import useHttp from "../../../hooks/use-http";
+import { fetchVideos } from "../../../lib/api";
 
 const VideosWrapper = (props) => {
+  const {
+    sendHttpRequest: fetchVideosRequest,
+    data: videos,
+    isLoading,
+  } = useHttp(fetchVideos);
+
+  useEffect(() => {
+    fetchVideosRequest();
+  }, [fetchVideosRequest]);
   return (
     <Wrapper
       className={`${
@@ -15,18 +27,16 @@ const VideosWrapper = (props) => {
       container={`container-grid-4x container`}
     >
       <h2 className="section-title color--white">{props.title}</h2>
-      <Link to="/videos/1">
-        <Card className="card-main" type="video" image={images.videos.video1} />
-      </Link>
-      <Link to="/videos/2">
-        <Card className="card-main" type="video" image={images.videos.video2} />
-      </Link>
-      <Link to="/videos/3">
-        <Card className="card-main" type="video" image={images.videos.video3} />
-      </Link>
-      <Link to="/videos/4">
-        <Card className="card-main" type="video" image={images.videos.video4} />
-      </Link>
+      {!isLoading &&
+        videos &&
+        videos.length > 0 &&
+        videos.map((video) => {
+          return (
+            <Link key={video.id} to={`/videos/${video.id}`}>
+              <Card className="card-main" type="video" image={video.image} />
+            </Link>
+          );
+        })}
     </Wrapper>
   );
 };
