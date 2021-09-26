@@ -85,9 +85,9 @@ const SlickCarousal = (props) => {
     <Fragment>
       <div className={classes.slider}>
         <Slider {...settings}>
-          {Array.isArray(props.workshops) &&
-            props.workshops.length > 0 &&
-            props.workshops.map((workshop) => {
+          {Array.isArray(props.data) &&
+            props.data.length > 0 &&
+            props.data.map((workshop) => {
               return (
                 <Link
                   key={workshop.name}

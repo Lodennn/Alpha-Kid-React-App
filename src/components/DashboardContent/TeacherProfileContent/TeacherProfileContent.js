@@ -92,7 +92,7 @@ const TeacherProfileContent = () => {
 
         {/* Completed Workshops */}
         <h2 className="section-title">Completed Workshops</h2>
-        <SlickCarousal workshops={availableWorkshops} />
+        <SlickCarousal data={availableWorkshops} />
 
         {/* Incompleted Workshops */}
         <Alert
@@ -103,7 +103,7 @@ const TeacherProfileContent = () => {
 
         {!notAvailableWorkshopsLoading && notAvailableWorkshops.length > 0 && (
           <SlickCarousal
-            workshops={notAvailableWorkshops}
+            data={notAvailableWorkshops}
             onShowModal={showAddNewExamModalHandler}
           />
         )}

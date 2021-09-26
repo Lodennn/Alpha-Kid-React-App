@@ -1,22 +1,23 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import { FaChevronCircleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import useHttp from "../../../hooks/use-http";
 import {
   fetchSingleWorkshopFS,
   insertExamSheet,
-  updateWorkshop,
+  insertDoneWorkshops,
 } from "../../../lib/api";
 import { snackbarActions } from "../../../store/snackbar/snackbar-slice";
 import classes from "./Exam.module.scss";
 
 const Exam = (props) => {
-  const { sendHttpRequest: updateWorkshopRequest } = useHttp(updateWorkshop);
-
   const { sendHttpRequest: insertExamSheetRequest } = useHttp(insertExamSheet);
 
   //prettier-ignore
   const { sendHttpRequest: getSingleWorkshopRequest } = useHttp(fetchSingleWorkshopFS);
+
+  const { sendHttpRequest: insertDoneWorkshopRequest } =
+    useHttp(insertDoneWorkshops);
 
   const { activeUserProfile } = useSelector((state) => state.profile);
 
@@ -100,7 +101,7 @@ const Exam = (props) => {
       workshopName: workshop.name,
       result: `${examResult} of ${numberOfQuestions}`,
       passStatus: kidSuccessStatus ? "Passed 😍" : "Failed 😥",
-      kidProfileId: activeUserProfile.id,
+      profileId: activeUserProfile.id,
       workshopId: workshop.id,
     };
 
@@ -114,10 +115,17 @@ const Exam = (props) => {
     );
 
     // Add kid profile id to workshop
-    updateWorkshopRequest({
-      workshopId: workshop.id,
-      data: { profileId: activeUserProfile.id },
-    }).then((_) => getSingleWorkshopRequest(workshop.id));
+    // updateWorkshopRequest({
+    //   workshopId: workshop.id,
+    //   data: { profileId: activeUserProfile.id },
+    // }).then((_) => );
+
+    getSingleWorkshopRequest(workshop.id);
+
+    insertDoneWorkshopRequest({
+      data: workshop,
+      profileId: activeUserProfile.id,
+    });
 
     props.onExamDone(true);
   };

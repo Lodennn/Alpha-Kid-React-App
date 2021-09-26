@@ -238,3 +238,43 @@ export const fetchExamSheet = async (requestData) => {
     throw err;
   }
 };
+
+export const insertDoneWorkshops = async (requestData) => {
+  try {
+    const { profileId, data } = requestData;
+
+    const workshopData = {
+      image: data.image,
+      lessons: data.lessons,
+      name: data.name,
+      workshopId: data.id,
+    };
+    const doneWorkshopRef = doc(collection(db, "doneWorkshops"));
+
+    const doneWorkshopDataWithId = {
+      id: doneWorkshopRef.id,
+      profileId,
+      ...workshopData,
+    };
+    await setDoc(doneWorkshopRef, doneWorkshopDataWithId);
+    return doneWorkshopDataWithId;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const fetchDoneWorkshops = async (profileId) => {
+  try {
+    const doneWorkshopsRef = collection(db, "doneWorkshops");
+    const q = query(doneWorkshopsRef, where("profileId", "==", profileId));
+    const querySnapshot = await getDocs(q);
+    const doneWorkshopsData = [];
+    querySnapshot.forEach((workshop) => {
+      doneWorkshopsData.push(workshop.data());
+    });
+    console.log("doneWorkshopsData", doneWorkshopsData);
+    return doneWorkshopsData;
+  } catch (err) {
+    throw err;
+  }
+};
