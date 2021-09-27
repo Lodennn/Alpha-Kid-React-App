@@ -14,6 +14,10 @@ const profilesSlice = createSlice({
   reducers: {
     getAllProfiles(state, action) {
       state.profiles = action.payload;
+      if (state.profiles.length === 0) {
+        state.activeUserProfile = null;
+      }
+      console.log("activeUserProfile: getAllProfiles", activeUserProfile);
     },
     addProfile(state, action) {
       state.profiles.push(action.payload);

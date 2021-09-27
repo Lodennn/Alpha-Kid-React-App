@@ -13,7 +13,7 @@ import Profiles from "./Profiles/Profiles";
 
 const ParentProfileContent = () => {
   const [showExamSheetModal, setShowExamSheetModal] = useState(false);
-  const { activeUserProfile } = useSelector((state) => state.profile);
+  const { profiles, activeUserProfile } = useSelector((state) => state.profile);
   const {
     data: doneWorkshops,
     isLoading,
@@ -35,8 +35,10 @@ const ParentProfileContent = () => {
   console.log("showExamSheetModal", showExamSheetModal);
 
   useEffect(() => {
-    fetchDoneWorkshopsRequest(activeUserProfile.id);
-  }, [activeUserProfile.id, fetchDoneWorkshopsRequest, showExamSheetModal]);
+    if (profiles.length > 0) {
+      fetchDoneWorkshopsRequest(activeUserProfile.id);
+    }
+  }, [activeUserProfile?.id, fetchDoneWorkshopsRequest, showExamSheetModal]);
 
   return (
     <Fragment>
