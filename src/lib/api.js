@@ -222,7 +222,6 @@ export const insertExamSheet = async (requestData) => {
 export const fetchExamSheet = async (requestData) => {
   try {
     const { profileId, workshopId } = requestData;
-    console.log("requestData: ", requestData);
     const examSheetRef = collection(db, "examSheets");
     const q = query(
       examSheetRef,
@@ -273,7 +272,6 @@ export const fetchDoneWorkshops = async (profileId) => {
     querySnapshot.forEach((workshop) => {
       doneWorkshopsData.push(workshop.data());
     });
-    console.log("doneWorkshopsData", doneWorkshopsData);
     return doneWorkshopsData;
   } catch (err) {
     throw err;
@@ -288,7 +286,6 @@ export const fetchGames = async () => {
     querySnapshot.forEach((game) => {
       gamesData.push(game.data());
     });
-    console.log("gamesData", gamesData);
     return gamesData;
   } catch (err) {
     throw err;
@@ -303,7 +300,6 @@ export const fetchVideos = async () => {
     querySnapshot.forEach((video) => {
       videosData.push(video.data());
     });
-    console.log("videosData", videosData);
     return videosData;
   } catch (err) {
     throw err;
@@ -330,13 +326,18 @@ export const fetchSingleVideo = async (videoId) => {
   }
 };
 
-// export const fetchSameCategory = async (requestData) => {
-//   try {
-//     const { collection, id } = requestData;
-//     const videoRef = doc(db, collection, videoId);
-//     const docSnap = await getDoc(videoRef);
-//     return docSnap.data();
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+export const fetchSameCategoryData = async (requestData) => {
+  try {
+    const { collection: coll, category, id } = requestData;
+    const dataRef = collection(db, coll);
+    const q = query(dataRef, where("category", "==", category));
+    const querySnap = await getDocs(q);
+    const fetchedData = [];
+    querySnap.forEach((data) => {
+      fetchedData.push(data.data());
+    });
+    return fetchedData.filter((data) => data.id !== id);
+  } catch (err) {
+    throw err;
+  }
+};

@@ -4,7 +4,7 @@ import classes from "./SingleVideoIntro.module.scss";
 import { Link } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
 import { useParams } from "react-router";
-import { fetchSingleVideo } from "../../lib/api";
+import { fetchSameCategoryData, fetchSingleVideo } from "../../lib/api";
 import { useEffect } from "react";
 
 const SingleVideoIntro = () => {
@@ -12,14 +12,24 @@ const SingleVideoIntro = () => {
 
   const { videoId } = params;
 
-  console.log("videoId", videoId);
-
   const { data: video, sendHttpRequest: fetchSingleVideoRequest } =
     useHttp(fetchSingleVideo);
 
+  const {
+    data: sameCategoryVideos,
+    isLoading: sameCategoryVideosLoading,
+    sendHttpRequest: fetchSameCategoryVideosRequest,
+  } = useHttp(fetchSameCategoryData);
+
   useEffect(() => {
-    fetchSingleVideoRequest(videoId);
-  }, [videoId, fetchSingleVideoRequest]);
+    fetchSingleVideoRequest(videoId).then((data) =>
+      fetchSameCategoryVideosRequest({
+        id: data.id,
+        collection: "videos",
+        category: data.category,
+      })
+    );
+  }, [videoId, fetchSingleVideoRequest, fetchSameCategoryVideosRequest]);
 
   return (
     <section className={`${classes["single-video-intro"]}`}>
@@ -35,21 +45,21 @@ const SingleVideoIntro = () => {
             allowFullScreen
           ></iframe>
         </div>
-        <h2 className={classes["section-title"]}>Same Company</h2>
-        <Link to="/videos/1">
-          <Card
-            className={`${classes["card-main"]} card-main`}
-            type="video"
-            image={images.videos.video1}
-          />
-        </Link>
-        <Link to="/videos/2">
-          <Card
-            className={`${classes["card-main"]} card-main`}
-            type="video"
-            image={images.videos.video2}
-          />
-        </Link>
+        <h2 className={classes["section-title"]}>Same Category</h2>
+        {!sameCategoryVideosLoading &&
+          sameCategoryVideos &&
+          sameCategoryVideos.length > 0 &&
+          sameCategoryVideos.slice(0, 2).map((video) => {
+            return (
+              <Link key={video.id} to={`/videos/${video.id}`}>
+                <Card
+                  className={`${classes["card-main"]} card-main`}
+                  type="video"
+                  image={video.image}
+                />
+              </Link>
+            );
+          })}
       </div>
     </section>
   );

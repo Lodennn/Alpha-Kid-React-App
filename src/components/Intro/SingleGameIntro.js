@@ -5,23 +5,31 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import useHttp from "../../hooks/use-http";
 import { useParams } from "react-router";
-import { fetchSingleGame } from "../../lib/api";
+import { fetchSameCategoryData, fetchSingleGame } from "../../lib/api";
 
 const SingleGameIntro = () => {
   const params = useParams();
 
   const { gameId } = params;
 
-  console.log("gameId", gameId);
-
   const { data: game, sendHttpRequest: fetchSingleGameRequest } =
     useHttp(fetchSingleGame);
 
-  useEffect(() => {
-    fetchSingleGameRequest(gameId);
-  }, [gameId, fetchSingleGameRequest]);
+  const {
+    data: sameCategoryGames,
+    isLoading: sameCategoryGamesLoading,
+    sendHttpRequest: fetchSameCategoryGamesRequest,
+  } = useHttp(fetchSameCategoryData);
 
-  console.log("game: ", game);
+  useEffect(() => {
+    fetchSingleGameRequest(gameId).then((data) =>
+      fetchSameCategoryGamesRequest({
+        id: data.id,
+        collection: "games",
+        category: data.category,
+      })
+    );
+  }, [gameId, fetchSingleGameRequest, fetchSameCategoryGamesRequest]);
 
   return (
     <section className={`${classes["single-game-intro"]}`}>
@@ -37,21 +45,21 @@ const SingleGameIntro = () => {
             allowFullScreen
           ></iframe>
         </div>
-        <h2 className={classes["section-title"]}>Same Company</h2>
-        <Link to="/games/1">
-          <Card
-            className={`${classes["card-main"]} card-main`}
-            type="game"
-            image={images.games.game1}
-          />
-        </Link>
-        <Link to="/games/2">
-          <Card
-            className={`${classes["card-main"]} card-main`}
-            type="game"
-            image={images.games.game2}
-          />
-        </Link>
+        <h2 className={classes["section-title"]}>Same Category</h2>
+        {!sameCategoryGamesLoading &&
+          sameCategoryGames &&
+          sameCategoryGames.length > 0 &&
+          sameCategoryGames.slice(0, 2).map((game) => {
+            return (
+              <Link key={game.id} to={`/games/${game.id}`}>
+                <Card
+                  className={`${classes["card-main"]} card-main`}
+                  type="game"
+                  image={game.image}
+                />
+              </Link>
+            );
+          })}
       </div>
     </section>
   );

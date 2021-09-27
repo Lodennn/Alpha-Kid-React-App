@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import useHttp from "../hooks/use-http";
@@ -25,8 +25,6 @@ const ExamSheet = (props) => {
   const { examSheet, kidName, passStatus, result, workshopName } =
     fetchedExamSheet;
 
-  console.log("examSheet: ", fetchedExamSheet.examSheet);
-
   useEffect(() => {
     fetchExamSheetRequest({ profileId, workshopId });
   }, [fetchExamSheetRequest, profileId, workshopId]);
@@ -50,17 +48,15 @@ const ExamSheet = (props) => {
             examSheet.map((sheet, index) => {
               const { rightAnswer, kidAnswer, question, isAnswerRight } = sheet;
               return (
-                <>
-                  <li key={index}>
-                    <h2>{question}</h2>
-                    <h3>The right answer - {rightAnswer}</h3>
-                    <h3>yout kid answer - {kidAnswer}</h3>
-                    <h5>
-                      Status: {isAnswerRight ? "Right Answer" : "Wrong Answer"}
-                    </h5>
-                  </li>
+                <li key={index}>
+                  <h2>{question}</h2>
+                  <h3>The right answer - {rightAnswer}</h3>
+                  <h3>yout kid answer - {kidAnswer}</h3>
+                  <h5>
+                    Status: {isAnswerRight ? "Right Answer" : "Wrong Answer"}
+                  </h5>
                   <hr />
-                </>
+                </li>
               );
             })}
         </ul>

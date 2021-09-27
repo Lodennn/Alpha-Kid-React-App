@@ -24,15 +24,11 @@ const ParentProfileContent = () => {
 
   const showExamSheetModalHandler = (e) => {
     setShowExamSheetModal(true);
-    console.log("SHOW EXAM SHEET MODAL CLICKED");
   };
 
   const hideExamSheetModalHandler = (e) => {
     setShowExamSheetModal(false);
-    console.log("HIDE EXAM SHEET MODAL CLICKED");
   };
-
-  console.log("showExamSheetModal", showExamSheetModal);
 
   useEffect(() => {
     if (profiles.length > 0) {
