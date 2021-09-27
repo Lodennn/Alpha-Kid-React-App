@@ -108,28 +108,31 @@ const Exam = (props) => {
       workshopId: workshop.id,
     };
 
-    insertExamSheetRequest(fullExamSheet).then((_) =>
-      reduxDispatch(
-        snackbarActions.showSnackBar({
-          type: "success",
-          message: "Exam Sheet has sent to parent",
-        })
-      )
-    );
-
-    // Add kid profile id to workshop
-
     getSingleWorkshopRequest(workshop.id);
 
-    insertDoneWorkshopRequest({
-      data: workshop,
-      profileId: activeUserProfile.id,
-    }).then((_) =>
-      updateWorkshopRequest({
-        workshopId: workshop.id,
-        data: { examSheetId: props.examSheetId },
+    insertExamSheetRequest(fullExamSheet)
+      .then((examSheetData) => {
+        insertDoneWorkshopRequest({
+          data: workshop,
+          profileId: activeUserProfile.id,
+        }).then((data) =>
+          setTimeout(() => {
+            updateWorkshopRequest({
+              collection: "doneWorkshops",
+              workshopId: data.id,
+              data: { examSheetId: examSheetData.id },
+            });
+          }, 5000)
+        );
       })
-    );
+      .then((_) =>
+        reduxDispatch(
+          snackbarActions.showSnackBar({
+            type: "success",
+            message: "Exam Sheet has sent to parent",
+          })
+        )
+      );
 
     props.onExamDone(true);
   };

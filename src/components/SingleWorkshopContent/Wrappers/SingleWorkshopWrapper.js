@@ -48,7 +48,6 @@ const SingleWorkshopWrapper = (props) => {
           onExamDone={props.onExamDone}
           isExamDone={props.isExamDone}
           examHasBeenTaken={props.examHasBeenTaken}
-          examSheetId={props.examSheetId}
         />
       )}
     </Wrapper>

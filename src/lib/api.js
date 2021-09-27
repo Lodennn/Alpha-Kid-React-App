@@ -184,10 +184,12 @@ export const insertExamFS = async (requestData) => {
   }
 };
 
-export const updateWorkshop = async (request) => {
+export const updateWorkshop = async (requestData) => {
   try {
-    const workshopRef = doc(db, "workshops", request.workshopId);
-    const updatedWorkshop = await updateDoc(workshopRef, request.data);
+    console.log("requestData: ", requestData);
+    const { collection: coll, workshopId, data } = requestData;
+    const workshopRef = doc(db, coll, workshopId);
+    const updatedWorkshop = await updateDoc(workshopRef, data);
   } catch (err) {
     throw err;
   }

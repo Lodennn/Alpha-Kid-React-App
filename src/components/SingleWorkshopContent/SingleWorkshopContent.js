@@ -31,6 +31,8 @@ const SingleWorkshopContent = () => {
   const examHasBeenTaken =
     examSheet.profileId === profileId && examSheet.workshopId === workshopId;
 
+  console.log("examSheet.id: ", examSheet);
+
   useEffect(() => {
     fetchSingleWorkshop(workshopId);
     fetchExamSheetRequest({ profileId, workshopId });
@@ -75,7 +77,6 @@ const SingleWorkshopContent = () => {
             onExamDone={getExamDoneStatus}
             isExamDone={examDone}
             examHasBeenTaken={examHasBeenTaken}
-            examSheetId={examSheet.id}
           />
         )}
       </MainLayoutWrapper>
