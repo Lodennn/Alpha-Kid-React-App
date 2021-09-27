@@ -6,6 +6,7 @@ import {
   fetchSingleWorkshopFS,
   insertExamSheet,
   insertDoneWorkshops,
+  updateWorkshop,
 } from "../../../lib/api";
 import { snackbarActions } from "../../../store/snackbar/snackbar-slice";
 import classes from "./Exam.module.scss";
@@ -15,6 +16,8 @@ const Exam = (props) => {
 
   //prettier-ignore
   const { sendHttpRequest: getSingleWorkshopRequest } = useHttp(fetchSingleWorkshopFS);
+
+  const { sendHttpRequest: updateWorkshopRequest } = useHttp(updateWorkshop);
 
   const { sendHttpRequest: insertDoneWorkshopRequest } =
     useHttp(insertDoneWorkshops);
@@ -115,17 +118,18 @@ const Exam = (props) => {
     );
 
     // Add kid profile id to workshop
-    // updateWorkshopRequest({
-    //   workshopId: workshop.id,
-    //   data: { profileId: activeUserProfile.id },
-    // }).then((_) => );
 
     getSingleWorkshopRequest(workshop.id);
 
     insertDoneWorkshopRequest({
       data: workshop,
       profileId: activeUserProfile.id,
-    });
+    }).then((_) =>
+      updateWorkshopRequest({
+        workshopId: workshop.id,
+        data: { examSheetId: props.examSheetId },
+      })
+    );
 
     props.onExamDone(true);
   };

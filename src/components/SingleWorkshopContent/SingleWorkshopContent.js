@@ -75,6 +75,7 @@ const SingleWorkshopContent = () => {
             onExamDone={getExamDoneStatus}
             isExamDone={examDone}
             examHasBeenTaken={examHasBeenTaken}
+            examSheetId={examSheet.id}
           />
         )}
       </MainLayoutWrapper>

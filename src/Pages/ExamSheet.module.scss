@@ -1,0 +1,66 @@
+@import "../styles/Variables.scss";
+
+.sheet {
+  position: relative;
+  &__emoji {
+    opacity: 0.1;
+    width: 35rem;
+    position: absolute;
+    top: 50%;
+    right: 3rem;
+    transform: translateY(-50%);
+  }
+  &__title {
+    font-family: $font-secondary;
+    font-size: 4rem;
+    &--primary {
+      color: $color-primary;
+    }
+    &--secondary {
+      font-size: 3rem;
+    }
+  }
+
+  &__paragraph {
+    font-family: $font-secondary;
+    font-size: 2rem;
+  }
+
+  &__span {
+    &--primary {
+      color: $color-primary;
+    }
+    &--success {
+      color: $color-success-dark;
+    }
+    &--failed {
+      color: $color-tertiary;
+    }
+  }
+
+  &__review {
+    height: 35rem;
+    overflow-y: scroll;
+    font-size: 2rem;
+    &--question {
+    }
+    &--kid-answer {
+    }
+    &--right-answer {
+    }
+    &--status {
+      font-family: $font-secondary;
+      &-right {
+        color: $color-success-dark;
+      }
+      &-wrong {
+        color: $color-tertiary;
+      }
+    }
+  }
+
+  &__grade {
+    font-size: 2rem;
+    margin-top: 2rem;
+  }
+}

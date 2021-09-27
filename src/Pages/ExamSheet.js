@@ -4,7 +4,9 @@ import { useParams } from "react-router";
 import useHttp from "../hooks/use-http";
 import { fetchExamSheet } from "../lib/api";
 import Modal from "../components/UI/Modal";
-
+import classes from "./ExamSheet.module.scss";
+import images from "../assets/";
+console.log("IMAGES: ", images);
 const ExamSheet = (props) => {
   const {
     data: fetchedExamSheet,
@@ -31,17 +33,46 @@ const ExamSheet = (props) => {
 
   return (
     <Modal onHide={props.onHide}>
-      <div>
-        <h2>Hello Mr.{user.name}</h2>
-        <h4>
-          Your kid {kidName} has take exam of {workshopName} workshop
-        </h4>
-        <h4>
-          {passStatus ? "Congratulations " : "unfortunately"} {kidName} has{" "}
-          {passStatus ? "Passed 😍" : "Failed 😥"} the exam
-        </h4>
-        <h4>Exam Result: {result}</h4>
-        <ul className="mt-sm">
+      <div className={classes.sheet}>
+        <img
+          src={
+            images.examSheet[`${passStatus ? "passedEmoji" : "failedEmoji"}`]
+          }
+          alt="Emoji"
+          className={classes["sheet__emoji"]}
+        />
+        <h2
+          className={`${classes["sheet__title"]} ${classes["sheet__title--primary"]}`}
+        >
+          Exam Summary
+        </h2>
+        <p className={classes["sheet__paragraph"]}>
+          Hello{" "}
+          <span
+            className={`${classes["sheet__span"]} ${classes["sheet__span--primary"]}`}
+          >
+            {user.name}
+          </span>
+          , {passStatus ? "Congratulations" : "Unfortunately"} Your kid{" "}
+          <span
+            className={`${classes["sheet__span"]} ${classes["sheet__span--primary"]}`}
+          >
+            {kidName}
+          </span>{" "}
+          has {passStatus ? "passed" : "failed"} the{" "}
+          <span
+            className={`${classes["sheet__span"]} ${classes["sheet__span--primary"]}`}
+          >
+            {workshopName}
+          </span>{" "}
+          workshop exam
+        </p>
+        <h2
+          className={`${classes["sheet__title"]} ${classes["sheet__title--secondary"]} mt-md`}
+        >
+          Exam Review
+        </h2>
+        <ul className={`${classes["sheet__review"]} mt-sm`}>
           {!examSheetLoading &&
             !!examSheet &&
             examSheet.length > 0 &&
@@ -49,17 +80,53 @@ const ExamSheet = (props) => {
               const { rightAnswer, kidAnswer, question, isAnswerRight } = sheet;
               return (
                 <li key={index}>
-                  <h2>{question}</h2>
-                  <h3>The right answer - {rightAnswer}</h3>
-                  <h3>yout kid answer - {kidAnswer}</h3>
-                  <h5>
-                    Status: {isAnswerRight ? "Right Answer" : "Wrong Answer"}
+                  <h2
+                    className={`${classes["sheet__review--question"]} mt-sm mb-xs`}
+                  >
+                    Q{index + 1}: {question} ?
+                  </h2>
+                  <h3 className={`${classes["sheet__review--kid-answer"]}`}>
+                    <span className="span--strong">{kidName}'s answer:</span>{" "}
+                    {kidAnswer}
+                  </h3>
+                  <h3
+                    className={`${classes["sheet__review--right-answer"]} mb-xs`}
+                  >
+                    <span className="span--strong">The right answer:</span>{" "}
+                    {rightAnswer}
+                  </h3>
+                  <h5
+                    className={` ${classes["sheet__review--status"]} ${
+                      classes[
+                        `sheet__review--status-${
+                          isAnswerRight ? "right" : "wrong"
+                        }`
+                      ]
+                    }`}
+                  >
+                    {isAnswerRight ? "Right Answer 😁" : "Wrong Answer 😥"}
                   </h5>
-                  <hr />
                 </li>
               );
             })}
         </ul>
+        <h3 className={classes["sheet__grade"]}>
+          Grade {result}{" "}
+          {passStatus && (
+            <span
+              className={`${classes["sheet__span"]} ${classes["sheet__span--success"]} span--strong`}
+            >
+              Passed
+            </span>
+          )}
+          {!passStatus && (
+            <span
+              className={`${classes["sheet__span"]} ${classes["sheet__span--failed"]} span--strong`}
+            >
+              Failed
+            </span>
+          )}
+        </h3>
       </div>
     </Modal>
   );

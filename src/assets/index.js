@@ -76,4 +76,8 @@ export default {
     default: require("./profiles/default.png").default,
   },
   auth: require("./Auth.jpg").default,
+  examSheet: {
+    passedEmoji: require("./examSheet/passed-emoji.png").default,
+    failedEmoji: require("./examSheet/failed-emoji.png").default,
+  },
 };

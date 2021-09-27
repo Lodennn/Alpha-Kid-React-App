@@ -5,6 +5,7 @@ import {
   doc,
   setDoc,
   getDoc,
+  deleteDoc,
   query,
   where,
   updateDoc,
@@ -337,6 +338,16 @@ export const fetchSameCategoryData = async (requestData) => {
       fetchedData.push(data.data());
     });
     return fetchedData.filter((data) => data.id !== id);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteDocFS = async (requestData) => {
+  try {
+    const { collection: coll, docId } = requestData;
+    const docRef = doc(db, coll, docId);
+    await deleteDoc(docRef);
   } catch (err) {
     throw err;
   }

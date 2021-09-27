@@ -192,6 +192,11 @@ h6 {
   margin-bottom: 2rem;
   font-size: 3rem;
 }
+.span {
+  &--strong {
+    font-weight: bold;
+  }
+}
 /////////////////////////////////////////// Global Components
 
 .logo {

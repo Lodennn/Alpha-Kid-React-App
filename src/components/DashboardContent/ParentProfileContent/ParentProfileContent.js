@@ -2,7 +2,11 @@ import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouteMatch } from "react-router";
 import useHttp from "../../../hooks/use-http";
-import { fetchDoneWorkshops, fetchExamSheet } from "../../../lib/api";
+import {
+  deleteDocFS,
+  fetchDoneWorkshops,
+  fetchExamSheet,
+} from "../../../lib/api";
 import PrivateRoute from "../../../Pages/PrivateRoute/PrivateRoute";
 import ExamSheet from "../../../Pages/ExamSheet";
 import Breadcrumb from "../../UI/Breadcrumb";
@@ -13,12 +17,15 @@ import Profiles from "./Profiles/Profiles";
 
 const ParentProfileContent = () => {
   const [showExamSheetModal, setShowExamSheetModal] = useState(false);
+  const [examSheet, setExamSheet] = useState({});
   const { profiles, activeUserProfile } = useSelector((state) => state.profile);
   const {
     data: doneWorkshops,
     isLoading,
     sendHttpRequest: fetchDoneWorkshopsRequest,
   } = useHttp(fetchDoneWorkshops);
+
+  const { sendHttpRequest: deleteDocRequest } = useHttp(deleteDocFS);
 
   const match = useRouteMatch();
 
@@ -28,6 +35,13 @@ const ParentProfileContent = () => {
 
   const hideExamSheetModalHandler = (e) => {
     setShowExamSheetModal(false);
+  };
+
+  const getExamSheetHandler = (examSheet) => {
+    setExamSheet(examSheet);
+  };
+  const deleteDocHandler = () => {
+    deleteDocRequest({});
   };
 
   useEffect(() => {
