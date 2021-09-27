@@ -123,6 +123,7 @@ const AddExam = (props) => {
     insertExamRequest({ exam: examData, workshopId })
       .then((_) =>
         updateWorkshopRequest({
+          collection: "workshops",
           workshopId,
           data: {
             hasExam: true,

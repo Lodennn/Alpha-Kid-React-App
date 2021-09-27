@@ -6,7 +6,7 @@ import { fetchExamSheet } from "../lib/api";
 import Modal from "../components/UI/Modal";
 import classes from "./ExamSheet.module.scss";
 import images from "../assets/";
-console.log("IMAGES: ", images);
+
 const ExamSheet = (props) => {
   const {
     data: fetchedExamSheet,

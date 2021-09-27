@@ -24,7 +24,16 @@ const CardInfo = (props) => {
         >
           Show Exam Sheet
         </Link>
-        <button className={classes["card-info__btn"]}>Take Exam Again</button>
+        <button
+          className={classes["card-info__btn"]}
+          onClick={props.onDeleteExamSheet.bind(null, {
+            examSheetId: data.examSheetId,
+            workshopId: data.workshopId,
+            doneWorkshopId: data.id,
+          })}
+        >
+          Take Exam Again
+        </button>
       </div>
     </div>
   );

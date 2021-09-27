@@ -58,8 +58,7 @@ const Exam = (props) => {
       if (state.activeQuestionIndex >= action.maxQuestions) {
         return { ...state, activeQuestionIndex: action.maxQuestions };
       }
-      state.activeQuestionIndex = state.activeQuestionIndex + 1;
-      return { ...state, activeQuestionIndex: state.activeQuestionIndex };
+      return { ...state, activeQuestionIndex: state["activeQuestionIndex"]++ };
     }
     return state;
   };
@@ -113,17 +112,16 @@ const Exam = (props) => {
     insertExamSheetRequest(fullExamSheet)
       .then((examSheetData) => {
         insertDoneWorkshopRequest({
-          data: workshop,
+          data: { examSheetId: examSheetData.id, ...workshop },
           profileId: activeUserProfile.id,
-        }).then((data) =>
-          setTimeout(() => {
-            updateWorkshopRequest({
-              collection: "doneWorkshops",
-              workshopId: data.id,
-              data: { examSheetId: examSheetData.id },
-            });
-          }, 5000)
-        );
+        });
+        // .then((data) =>
+        //   updateWorkshopRequest({
+        //     collection: "doneWorkshops",
+        //     workshopId: data.id,
+        //     data: { examSheetId: examSheetData.id },
+        //   })
+        // );
       })
       .then((_) =>
         reduxDispatch(
@@ -149,8 +147,9 @@ const Exam = (props) => {
               <div
                 key={examData.question}
                 className={`${classes["exam__slide"]} ${
-                  examState.activeQuestionIndex === index &&
-                  classes["exam__slide--active"]
+                  examState.activeQuestionIndex === index
+                    ? classes["exam__slide--active"]
+                    : null
                 }`}
               >
                 <div className={classes["exam__info"]}>

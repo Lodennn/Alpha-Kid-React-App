@@ -186,7 +186,6 @@ export const insertExamFS = async (requestData) => {
 
 export const updateWorkshop = async (requestData) => {
   try {
-    console.log("requestData: ", requestData);
     const { collection: coll, workshopId, data } = requestData;
     const workshopRef = doc(db, coll, workshopId);
     const updatedWorkshop = await updateDoc(workshopRef, data);
@@ -251,12 +250,13 @@ export const insertDoneWorkshops = async (requestData) => {
       lessons: data.lessons,
       name: data.name,
       workshopId: data.id,
+      examSheetId: data.examSheetId,
+      profileId,
     };
     const doneWorkshopRef = doc(collection(db, "doneWorkshops"));
 
     const doneWorkshopDataWithId = {
       id: doneWorkshopRef.id,
-      profileId,
       ...workshopData,
     };
     await setDoc(doneWorkshopRef, doneWorkshopDataWithId);
@@ -350,6 +350,16 @@ export const deleteDocFS = async (requestData) => {
     const { collection: coll, docId } = requestData;
     const docRef = doc(db, coll, docId);
     await deleteDoc(docRef);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteDoneWorkshopFS = async (requestData) => {
+  try {
+    const { doneWorkshopId } = requestData;
+    const doneWorkshopRef = collection(db, "doneWorkshops", doneWorkshopId);
+    await deleteDoc(doneWorkshopRef);
   } catch (err) {
     throw err;
   }

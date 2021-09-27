@@ -1,9 +1,10 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useRouteMatch } from "react-router";
+import { useHistory, useRouteMatch } from "react-router";
 import useHttp from "../../../hooks/use-http";
 import {
   deleteDocFS,
+  deleteDoneWorkshopFS,
   fetchDoneWorkshops,
   fetchExamSheet,
 } from "../../../lib/api";
@@ -17,8 +18,11 @@ import Profiles from "./Profiles/Profiles";
 
 const ParentProfileContent = () => {
   const [showExamSheetModal, setShowExamSheetModal] = useState(false);
-  const [examSheet, setExamSheet] = useState({});
+
   const { profiles, activeUserProfile } = useSelector((state) => state.profile);
+
+  const history = useHistory();
+
   const {
     data: doneWorkshops,
     isLoading,
@@ -26,6 +30,9 @@ const ParentProfileContent = () => {
   } = useHttp(fetchDoneWorkshops);
 
   const { sendHttpRequest: deleteDocRequest } = useHttp(deleteDocFS);
+
+  const { sendHttpRequest: deleteDoneWorkshopRequest } =
+    useHttp(deleteDoneWorkshopFS);
 
   const match = useRouteMatch();
 
@@ -37,11 +44,18 @@ const ParentProfileContent = () => {
     setShowExamSheetModal(false);
   };
 
-  const getExamSheetHandler = (examSheet) => {
-    setExamSheet(examSheet);
-  };
-  const deleteDocHandler = () => {
-    deleteDocRequest({});
+  const deleteDocHandler = ({ examSheetId, workshopId, doneWorkshopId }) => {
+    deleteDocRequest({
+      collection: "examSheets",
+      docId: examSheetId,
+    })
+      .then((_) =>
+        deleteDocRequest({
+          collection: "doneWorkshops",
+          docId: doneWorkshopId,
+        })
+      )
+      .then((_) => history.push(`/workshops/${workshopId}`));
   };
 
   useEffect(() => {
@@ -69,6 +83,7 @@ const ParentProfileContent = () => {
                     data={workshop}
                     onShowModal={showExamSheetModalHandler}
                     matchPath={match.path}
+                    onDeleteExamSheet={deleteDocHandler}
                   />
                 );
               })}
