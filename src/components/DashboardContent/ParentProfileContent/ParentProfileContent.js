@@ -84,6 +84,7 @@ const ParentProfileContent = () => {
     showExamSheetModal,
     fetchDoneVideosRequest,
     fetchDoneGamesRequest,
+    profiles.length,
   ]);
 
   return (

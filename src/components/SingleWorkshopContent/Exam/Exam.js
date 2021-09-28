@@ -6,7 +6,6 @@ import {
   fetchSingleWorkshopFS,
   insertExamSheet,
   insertDoneWorkshops,
-  updateWorkshop,
 } from "../../../lib/api";
 import { snackbarActions } from "../../../store/snackbar/snackbar-slice";
 import classes from "./Exam.module.scss";
@@ -16,8 +15,6 @@ const Exam = (props) => {
 
   //prettier-ignore
   const { sendHttpRequest: getSingleWorkshopRequest } = useHttp(fetchSingleWorkshopFS);
-
-  const { sendHttpRequest: updateWorkshopRequest } = useHttp(updateWorkshop);
 
   const { sendHttpRequest: insertDoneWorkshopRequest } =
     useHttp(insertDoneWorkshops);

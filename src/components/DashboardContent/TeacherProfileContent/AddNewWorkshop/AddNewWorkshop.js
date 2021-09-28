@@ -25,12 +25,7 @@ const AddNewWorkshop = (props) => {
 
   const dispatch = useDispatch();
 
-  const {
-    isLoading,
-    data: workshopData,
-    error,
-    sendHttpRequest: addWorkshopRequest,
-  } = useHttp(insertWorkshopFS);
+  const { sendHttpRequest: addWorkshopRequest } = useHttp(insertWorkshopFS);
 
   const workshopNameValidator = (value) => {
     return value.length > 5;

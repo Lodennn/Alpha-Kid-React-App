@@ -11,12 +11,9 @@ import {
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 
 const SingleVideoIntro = () => {
   const params = useParams();
-
-  const dispatch = useDispatch();
 
   const { activeUserProfile } = useSelector((state) => state.profile);
 
@@ -86,15 +83,6 @@ const SingleVideoIntro = () => {
     <section className={`${classes["single-video-intro"]}`}>
       <div className={`${classes.container} container`}>
         <div className={classes["main"]}>
-          {/* <iframe
-            width="100%"
-            height="100%"
-            src={video.video}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe> */}
           <div className="youtube-wrapper">
             <YouTube
               videoId={currentVideoId}

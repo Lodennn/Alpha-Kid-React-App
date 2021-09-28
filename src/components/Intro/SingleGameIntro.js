@@ -1,5 +1,4 @@
 import Card from "../UI/Card";
-import images from "../../assets";
 import classes from "./SingleGameIntro.module.scss";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -78,15 +77,6 @@ const SingleGameIntro = () => {
     <section className={`${classes["single-game-intro"]}`}>
       <div className={`${classes.container} container`}>
         <div className={classes["main"]}>
-          {/* <iframe
-            width="100%"
-            height="100%"
-            src={game.game}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe> */}
           <div className="youtube-wrapper">
             <YouTube
               videoId={currentGameId}

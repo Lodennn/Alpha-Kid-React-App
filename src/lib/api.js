@@ -1,4 +1,4 @@
-import { API_KEY, API_URL } from "../config";
+import { API_KEY } from "../config";
 import {
   collection,
   getDocs,
@@ -187,7 +187,7 @@ export const updateWorkshop = async (requestData) => {
   try {
     const { collection: coll, workshopId, data } = requestData;
     const workshopRef = doc(db, coll, workshopId);
-    const updatedWorkshop = await updateDoc(workshopRef, data);
+    await updateDoc(workshopRef, data);
   } catch (err) {
     throw err;
   }

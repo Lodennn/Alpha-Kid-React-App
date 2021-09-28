@@ -6,7 +6,9 @@ const Lessons = (props) => {
   const { lessons: watchedLessons } = props;
 
   const [activeLesson, setActiveLesson] = useState(watchedLessons[0]);
+
   const [availableExam, setAvailableExam] = useState(false);
+
   const [startExam, setStartExam] = useState(false);
 
   const { getActiveLesson, getExam, isExamDone, examHasBeenTaken } = props;
@@ -24,7 +26,6 @@ const Lessons = (props) => {
 
   const startExamHandler = () => {
     if (availableExam || examHasBeenTaken) {
-      console.log("exam started 000000");
       setStartExam(true);
       setActiveLesson({});
     }

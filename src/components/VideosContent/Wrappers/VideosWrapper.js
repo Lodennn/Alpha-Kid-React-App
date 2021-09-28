@@ -1,7 +1,6 @@
 import Wrapper from "../../UI/Wrapper";
 import Card from "../../UI/Card";
 import classes from "./VideosWrapper.module.scss";
-import images from "../../../assets";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import useHttp from "../../../hooks/use-http";

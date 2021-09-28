@@ -7,6 +7,7 @@ import UserLinks from "./UserLinks/UserLinks";
 import Notifications from "./Notifications/Notifications";
 import classes from "./AccountUppernav.module.scss";
 import "../../../styles/Buttons.scss";
+import { featureWillBeAdded } from "../../../helpers";
 
 const AccountUppernav = (props) => {
   const { user } = useSelector((state) => state.user);
@@ -40,36 +41,40 @@ const AccountUppernav = (props) => {
     <div className={classes["account-uppernav"]}>
       <ul className={classes["account-uppernav__list"]}>
         {/* Item */}
-        <li className={classes["account-uppernav__item"]}>
-          <span className={classes["account-uppernav__icon"]}>
-            <FaShoppingCart />
-          </span>
-          <span className={classes["account-uppernav__text"]}>
-            <Link to="/shop" className="color--white">
-              Shop
-            </Link>
-          </span>
-        </li>
+        {featureWillBeAdded && (
+          <li className={classes["account-uppernav__item"]}>
+            <span className={classes["account-uppernav__icon"]}>
+              <FaShoppingCart />
+            </span>
+            <span className={classes["account-uppernav__text"]}>
+              <Link to="/shop" className="color--white">
+                Shop
+              </Link>
+            </span>
+          </li>
+        )}
         {/* Item */}
         {/* Item */}
-        <li
-          className={`${classes["account-uppernav__item"]} ${classes["notifications"]}`}
-          onClick={showNotificationHandler}
-        >
-          <span className={classes["account-uppernav__icon"]}>
-            <FaBell />
-          </span>
-          <span className={classes["account-uppernav__text"]}>
-            Notifications
-          </span>
-          {showNotifications && (
-            <Notifications
-              status={showNotifications}
-              hideBackdrop={hideBackdrop}
-            />
-          )}
-          {/* <Notifications status={showNotifications} /> */}
-        </li>
+        {featureWillBeAdded && (
+          <li
+            className={`${classes["account-uppernav__item"]} ${classes["notifications"]}`}
+            onClick={showNotificationHandler}
+          >
+            <span className={classes["account-uppernav__icon"]}>
+              <FaBell />
+            </span>
+            <span className={classes["account-uppernav__text"]}>
+              Notifications
+            </span>
+            {showNotifications && (
+              <Notifications
+                status={showNotifications}
+                hideBackdrop={hideBackdrop}
+              />
+            )}
+            {/* <Notifications status={showNotifications} /> */}
+          </li>
+        )}
         {/* Item */}
         {/* Item */}
         <li

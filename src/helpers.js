@@ -1,3 +1,4 @@
+export const featureWillBeAdded = false;
 export const generateRandomNumber = () => {
   return Math.trunc(Math.random() * 3) + 1;
 };

@@ -57,13 +57,25 @@ function App() {
           <GamesPage />
         </PrivateRoute>
         <PrivateRoute path="/games/:gameId">
-          <SingleGamePage />
+          {!!activeUserProfile && <SingleGamePage />}
+          {!!!activeUserProfile && (
+            <>
+              <Redirect to="/games" />
+              <MiddlewareRoute type="error" message="Please add kid profile" />
+            </>
+          )}
         </PrivateRoute>
         <PrivateRoute path="/videos" exact>
           <VideosPage />
         </PrivateRoute>
         <PrivateRoute path="/videos/:videoId">
-          <SingleVideoPage />
+          {!!activeUserProfile && <SingleVideoPage />}
+          {!!!activeUserProfile && (
+            <>
+              <Redirect to="/videos" />
+              <MiddlewareRoute type="error" message="Please add kid profile" />
+            </>
+          )}
         </PrivateRoute>
         <PrivateRoute path="/profile/parent">
           <ParentDashboard />

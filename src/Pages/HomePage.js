@@ -6,7 +6,7 @@ import { fetchAllProfilesFS } from "../lib/api";
 import { profilesActions } from "../store/profiles/profiles-slice";
 
 const HomePage = () => {
-  const { profiles, activeUserProfile } = useSelector((state) => state.profile);
+  const { activeUserProfile } = useSelector((state) => state.profile);
 
   const {
     user: { id: userId, type },
@@ -28,7 +28,7 @@ const HomePage = () => {
         }
       });
     }
-  }, [userId, type, dispatch, fetchProfilesRequest]);
+  }, [userId, type, dispatch, fetchProfilesRequest, activeUserProfile]);
   return <HomeContent />;
 };
 

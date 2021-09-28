@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 // Initialize Cloud Firestore through Firebase
-const firebaseApp = initializeApp({
+initializeApp({
   apiKey: "AIzaSyAGXrdQ9F8Kmt0GMxuqW2qpl-95Xc-ZBnE",
   authDomain: "alpha-kid.firebaseapp.com",
   databaseURL: "https://alpha-kid-default-rtdb.firebaseio.com",

@@ -42,15 +42,11 @@ const TeacherProfileContent = () => {
 
   const dispatch = useDispatch();
 
-  const {
-    data: allWorkshops,
-    isLoading: allWorkshopsLoading,
-    sendHttpRequest: getAllWorkshopsRequest,
-  } = useHttp(fetchAllWorkshopsFS);
+  const { sendHttpRequest: getAllWorkshopsRequest } =
+    useHttp(fetchAllWorkshopsFS);
 
   const {
     data: availableWorkshops,
-    isLoading: availableWorkshopsLoading,
     sendHttpRequest: getAvailableWorkshopsRequest,
   } = useHttp(fetchAvailableWorkshops);
 
