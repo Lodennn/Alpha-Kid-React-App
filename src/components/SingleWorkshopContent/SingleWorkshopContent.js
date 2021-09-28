@@ -38,11 +38,19 @@ const SingleWorkshopContent = () => {
 
   const { lessons } = workshop;
 
-  const [activeLesson, setActiveLesson] = useState({});
+  const [activeLesson, setActiveLesson] = useState({ lesson: "" });
+
   const [isExamAvailable, setIsExamAvailable] = useState(false);
+
+  const [watchedLessons, setWatchedLessons] = useState(lessons);
+
+  const [videoId, setVideoId] = useState("");
 
   const getActiveLessonHandler = (lesson) => {
     setActiveLesson(lesson);
+    if (lesson.lesson) {
+      setVideoId(lesson.lesson.split("/").at(-1));
+    }
   };
 
   const checkIsExamAvailable = (availability) => {
@@ -53,13 +61,17 @@ const SingleWorkshopContent = () => {
     setExamDone(isExamDone);
   };
 
+  const getWatchedLessonsHandler = (watchedLessons) => {
+    setWatchedLessons(watchedLessons);
+  };
+
   return (
     <Fragment>
       <MainLayoutWrapper>
         {isLoading && <LoadingSpinner />}
-        {!isLoading && lessons && lessons.length > 0 && (
+        {!isLoading && watchedLessons && watchedLessons.length > 0 && (
           <Lessons
-            lessons={lessons}
+            lessons={watchedLessons}
             getActiveLesson={getActiveLessonHandler}
             getExam={checkIsExamAvailable}
             isExamDone={examDone}
@@ -75,6 +87,8 @@ const SingleWorkshopContent = () => {
             onExamDone={getExamDoneStatus}
             isExamDone={examDone}
             examHasBeenTaken={examHasBeenTaken}
+            videoId={videoId}
+            getWatchedLessons={getWatchedLessonsHandler}
           />
         )}
       </MainLayoutWrapper>

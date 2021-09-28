@@ -70,7 +70,6 @@ export const userLogin = async (bodyData) => {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.log("Error: api.js 💣💣💣", err.message);
     throw err;
   }
 };
@@ -421,7 +420,6 @@ export const fetchDoneData = async (requestData) => {
     querySnap.forEach((data) => {
       fetchedData.push(data.data());
     });
-    console.log("fetchedData: ", fetchedData);
     return fetchedData;
   } catch (err) {
     throw err;

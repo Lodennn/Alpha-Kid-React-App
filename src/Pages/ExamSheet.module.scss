@@ -9,6 +9,7 @@
     top: 50%;
     right: 3rem;
     transform: translateY(-50%);
+    z-index: -1;
   }
   &__title {
     font-family: $font-secondary;

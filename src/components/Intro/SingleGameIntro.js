@@ -46,8 +46,6 @@ const SingleGameIntro = () => {
     },
   };
 
-  console.log("currentGameId", currentGameId);
-
   const onReady = (event) => {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();

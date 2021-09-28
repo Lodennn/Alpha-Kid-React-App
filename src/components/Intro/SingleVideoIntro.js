@@ -49,8 +49,6 @@ const SingleVideoIntro = () => {
     },
   };
 
-  console.log("currentVideoId", currentVideoId);
-
   const onReady = (event) => {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();

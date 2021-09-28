@@ -42,8 +42,6 @@ const ParentProfileContent = () => {
     sendHttpRequest: fetchDoneGamesRequest,
   } = useHttp(fetchDoneData);
 
-  console.log("doneVideos: ", doneVideos, "doneGames: ", doneGames);
-
   const match = useRouteMatch();
 
   const showExamSheetModalHandler = (e) => {

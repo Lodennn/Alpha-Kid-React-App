@@ -3,12 +3,11 @@ import { FaCheck, FaLock } from "react-icons/fa";
 import classes from "./Lessons.module.scss";
 
 const Lessons = (props) => {
-  const [watchedLessons, setWatchedLessons] = useState(props.lessons);
-  const [activeLesson, setActiveLesson] = useState(props.lessons[0]);
+  const { lessons: watchedLessons } = props;
+
+  const [activeLesson, setActiveLesson] = useState(watchedLessons[0]);
   const [availableExam, setAvailableExam] = useState(false);
   const [startExam, setStartExam] = useState(false);
-
-  watchedLessons[0].watched = true;
 
   const { getActiveLesson, getExam, isExamDone, examHasBeenTaken } = props;
 
@@ -19,21 +18,13 @@ const Lessons = (props) => {
   }, [getActiveLesson, activeLesson, getExam, startExam, watchedLessons]);
 
   const setActiveWatchedLesson = (lesson) => {
-    setWatchedLessons((state) => {
-      const updatedLessonIndex = state.findIndex(
-        (watchedLesson) => watchedLesson.lesson === lesson.lesson
-      );
-      const lessonWatched = { ...lesson, watched: true };
-      const updatedWatchedLessons = [...state];
-      updatedWatchedLessons[updatedLessonIndex] = lessonWatched;
-      return updatedWatchedLessons;
-    });
     setActiveLesson(lesson);
     setStartExam(false);
   };
 
   const startExamHandler = () => {
     if (availableExam || examHasBeenTaken) {
+      console.log("exam started 000000");
       setStartExam(true);
       setActiveLesson({});
     }
@@ -96,36 +87,6 @@ const Lessons = (props) => {
             </span>
           </li>
           {/* Exam Link */}
-          {/* <li
-            className={`${classes["lessons__lesson"]} ${classes["lessons__lesson--active"]}`}
-          >
-            <span className={classes["lessons__lesson--no"]}>Lesson 1</span>
-            <span
-              className={`${classes["lessons__lesson--status"]} ${classes["lessons__lesson--status-active"]}`}
-            >
-              <FaCheck />
-            </span>
-          </li>
-          <li
-            className={`${classes["lessons__lesson"]} ${classes["lessons__lesson--active"]}`}
-          >
-            <span className={classes["lessons__lesson--no"]}>Lesson 2</span>
-            <span className={`${classes["lessons__lesson--status"]}`}>
-              <FaCheck />
-            </span>
-          </li>
-          <li className={classes["lessons__lesson"]}>
-            <span className={classes["lessons__lesson--no"]}>Lesson 3</span>
-          </li>
-          <li className={classes["lessons__lesson"]}>
-            <span className={classes["lessons__lesson--no"]}>Lesson 4</span>
-          </li>
-          <li className={classes["lessons__lesson"]}>
-            <span className={classes["lessons__lesson--no"]}>Lesson 5</span>
-          </li>
-          <li className={classes["lessons__lesson"]}> 
-            <span className={classes["lessons__lesson--no"]}>Lesson 6</span>
-          </li>*/}
         </ul>
       </div>
     </div>
