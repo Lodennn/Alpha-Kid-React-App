@@ -199,6 +199,12 @@ h6 {
 }
 /////////////////////////////////////////// Global Components
 
+.youtube-wrapper {
+  & > div:first-of-type {
+    height: 75vh;
+  }
+}
+
 .logo {
   img {
     width: 100%;

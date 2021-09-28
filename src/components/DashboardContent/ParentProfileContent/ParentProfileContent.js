@@ -4,9 +4,8 @@ import { useHistory, useRouteMatch } from "react-router";
 import useHttp from "../../../hooks/use-http";
 import {
   deleteDocFS,
-  deleteDoneWorkshopFS,
   fetchDoneWorkshops,
-  fetchExamSheet,
+  fetchDoneData,
 } from "../../../lib/api";
 import PrivateRoute from "../../../Pages/PrivateRoute/PrivateRoute";
 import ExamSheet from "../../../Pages/ExamSheet";
@@ -31,8 +30,19 @@ const ParentProfileContent = () => {
 
   const { sendHttpRequest: deleteDocRequest } = useHttp(deleteDocFS);
 
-  const { sendHttpRequest: deleteDoneWorkshopRequest } =
-    useHttp(deleteDoneWorkshopFS);
+  const {
+    data: doneVideos,
+    isLoading: doneVideosLoading,
+    sendHttpRequest: fetchDoneVideosRequest,
+  } = useHttp(fetchDoneData);
+
+  const {
+    data: doneGames,
+    isLoading: doneGamesLoading,
+    sendHttpRequest: fetchDoneGamesRequest,
+  } = useHttp(fetchDoneData);
+
+  console.log("doneVideos: ", doneVideos, "doneGames: ", doneGames);
 
   const match = useRouteMatch();
 
@@ -61,8 +71,22 @@ const ParentProfileContent = () => {
   useEffect(() => {
     if (profiles.length > 0) {
       fetchDoneWorkshopsRequest(activeUserProfile.id);
+      fetchDoneVideosRequest({
+        collection: "doneVideos",
+        profileId: activeUserProfile.id,
+      });
+      fetchDoneGamesRequest({
+        collection: "doneGames",
+        profileId: activeUserProfile.id,
+      });
     }
-  }, [activeUserProfile?.id, fetchDoneWorkshopsRequest, showExamSheetModal]);
+  }, [
+    activeUserProfile?.id,
+    fetchDoneWorkshopsRequest,
+    showExamSheetModal,
+    fetchDoneVideosRequest,
+    fetchDoneGamesRequest,
+  ]);
 
   return (
     <Fragment>
@@ -70,9 +94,13 @@ const ParentProfileContent = () => {
       <div className="container">
         <h2 className="section-title">Dashboard</h2>
         <Profiles />
+        {/* Workshops */}
         <Wrapper className="profile__workshops">
           <h2>Finished Workshops</h2>
           <Wrapper container="container container-grid-3x">
+            {!doneWorkshops.length && (
+              <h2>Your kid didn't join any workshops</h2>
+            )}
             {isLoading && <LoadingSpinner />}
             {!isLoading &&
               doneWorkshops.length > 0 &&
@@ -94,6 +122,51 @@ const ParentProfileContent = () => {
             )}
           </PrivateRoute>
         </Wrapper>
+        {/* Workshops */}
+        {/* Games */}
+        <Wrapper className="profile__workshops">
+          <h2>Finished Games</h2>
+          <Wrapper container="container container-grid-3x">
+            {!doneGames.length && <h2>Your kid didn't play any game</h2>}
+            {doneGamesLoading && <LoadingSpinner />}
+            {!doneGamesLoading &&
+              doneGames.length > 0 &&
+              doneGames.map((game) => {
+                return (
+                  <CardInfo
+                    key={game.id}
+                    data={game}
+                    onShowModal={showExamSheetModalHandler}
+                    matchPath={match.path}
+                    onDeleteExamSheet={deleteDocHandler}
+                  />
+                );
+              })}
+          </Wrapper>
+        </Wrapper>
+        {/* Games */}
+        {/* Videos */}
+        <Wrapper className="profile__workshops">
+          <h2>Finished Videos</h2>
+          <Wrapper container="container container-grid-3x">
+            {!doneVideos.length && <h2>Your kid didn't watch any video</h2>}
+            {doneVideosLoading && <LoadingSpinner />}
+            {!doneVideosLoading &&
+              doneVideos.length > 0 &&
+              doneVideos.map((video) => {
+                return (
+                  <CardInfo
+                    key={video.id}
+                    data={video}
+                    onShowModal={showExamSheetModalHandler}
+                    matchPath={match.path}
+                    onDeleteExamSheet={deleteDocHandler}
+                  />
+                );
+              })}
+          </Wrapper>
+        </Wrapper>
+        {/* Videos */}
       </div>
     </Fragment>
   );

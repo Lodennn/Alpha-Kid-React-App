@@ -364,3 +364,66 @@ export const deleteDoneWorkshopFS = async (requestData) => {
     throw err;
   }
 };
+
+export const insertDoneVideos = async (requestData) => {
+  try {
+    const { profileId, data } = requestData;
+
+    const videoData = {
+      image: data.image,
+      category: data.category,
+      video: data.video,
+      profileId,
+    };
+    const doneVideoRef = doc(collection(db, "doneVideos"));
+
+    const doneVideoDataWithId = {
+      id: doneVideoRef.id,
+      ...videoData,
+    };
+    await setDoc(doneVideoRef, doneVideoDataWithId);
+    return doneVideoDataWithId;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const insertDoneGames = async (requestData) => {
+  try {
+    const { profileId, data } = requestData;
+
+    const gameData = {
+      image: data.image,
+      category: data.category,
+      game: data.game,
+      profileId,
+    };
+    const doneGameRef = doc(collection(db, "doneGames"));
+
+    const doneGameDataWithId = {
+      id: doneGameRef.id,
+      ...gameData,
+    };
+    await setDoc(doneGameRef, doneGameDataWithId);
+    return doneGameDataWithId;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const fetchDoneData = async (requestData) => {
+  try {
+    const { collection: coll, profileId } = requestData;
+    const dataRef = collection(db, coll);
+    const q = query(dataRef, where("profileId", "==", profileId));
+    const querySnap = await getDocs(q);
+    const fetchedData = [];
+    querySnap.forEach((data) => {
+      fetchedData.push(data.data());
+    });
+    console.log("fetchedData: ", fetchedData);
+    return fetchedData;
+  } catch (err) {
+    throw err;
+  }
+};
