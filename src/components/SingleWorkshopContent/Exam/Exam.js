@@ -76,6 +76,7 @@ const Exam = (props) => {
   };
 
   const nextQuestionHandler = () => {
+    console.log("NEXT QUESTION BUTTON");
     dispatch({ type: "NEXT", maxQuestions: numberOfQuestions - 1 });
   };
 
