@@ -26,7 +26,7 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const { isLoggedIn, user } = useSelector((state) => state.user);
 
   // Fetching All Users From Firebase
   useEffect(() => {
@@ -45,8 +45,11 @@ function App() {
           <WorkshopsPage />
         </PrivateRoute>
         <PrivateRoute path="/workshops/:workshopId">
-          {!!activeUserProfile && <SingleWorkshopPage />}
-          {!!!activeUserProfile && (
+          {user.type === "Teacher" && <SingleWorkshopPage />}
+          {user.type === "Parent" && !!activeUserProfile && (
+            <SingleWorkshopPage />
+          )}
+          {user.type === "Parent" && !!!activeUserProfile && (
             <>
               <Redirect to="/workshops" />
               <MiddlewareRoute type="error" message="Please add kid profile" />
@@ -57,8 +60,9 @@ function App() {
           <GamesPage />
         </PrivateRoute>
         <PrivateRoute path="/games/:gameId">
-          {!!activeUserProfile && <SingleGamePage />}
-          {!!!activeUserProfile && (
+          {user.type === "Teacher" && <SingleGamePage />}
+          {user.type === "Parent" && !!activeUserProfile && <SingleGamePage />}
+          {user.type === "Parent" && !!!activeUserProfile && (
             <>
               <Redirect to="/games" />
               <MiddlewareRoute type="error" message="Please add kid profile" />
