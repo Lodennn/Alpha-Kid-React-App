@@ -15,3 +15,47 @@
   }
   min-height: 30vh;
 }
+
+// MEDIA QUERY MANAGER
+/*
+    [0 - 600]       -   Design for phone
+    [600 - 900]     -   Design for tablet portrait
+    [900 - 1200]    -   Design for tablet landspace
+    [1200 - 1800]   -   NORMAL DESIGN APPLIES
+    [1800 - ++]     -   Design for big desktop
+
+    $bg argument choices: 
+    - phone
+    - tab-port
+    - tab-land
+    - big-desktop
+
+    ORDER: [Base + Typography > General Layout + Grid > Page Layout > Components]
+*/
+
+@mixin respond($breakpoint) {
+  // 600/16 = 37.5
+  @if $breakpoint == phone {
+    @media screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+  // 900/16 = 37.5
+  @if $breakpoint == tab-port {
+    @media screen and (max-width: 56.25em) {
+      @content;
+    }
+  }
+  // 1200/16 = 37.5
+  @if $breakpoint == tab-land {
+    @media screen and (max-width: 75em) {
+      @content;
+    }
+  }
+  // 1800/16 = 37.5
+  @if $breakpoint == big-desktop {
+    @media screen and (min-width: 112.5em) {
+      @content;
+    }
+  }
+}

@@ -1,11 +1,13 @@
 @import "../../../styles/Variables.scss";
+@import "../../../styles/Mixins.scss";
 
 .characters {
   background-color: $color-primary-light;
   height: 12rem;
-
-  &__list {
+  @include respond(tab-port) {
+    overflow-x: scroll;
   }
+
   &__item {
     width: 9.5rem;
     height: 9.5rem;
