@@ -55,9 +55,12 @@ const Exam = (props) => {
       if (state.activeQuestionIndex >= action.maxQuestions) {
         return { ...state, activeQuestionIndex: action.maxQuestions };
       }
-      state.activeQuestionIndex = state.activeQuestionIndex + 1;
-      // return { ...state, activeQuestionIndex: state["activeQuestionIndex"]++ };
-      return { ...state, activeQuestionIndex: state.activeQuestionIndex };
+      // state.activeQuestionIndex = state.activeQuestionIndex + 1;
+      // return { ...state, activeQuestionIndex: state.activeQuestionIndex };
+      return {
+        ...state,
+        activeQuestionIndex: state["activeQuestionIndex"] + 1,
+      };
     }
     return state;
   };
