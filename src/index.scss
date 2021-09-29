@@ -112,6 +112,9 @@ button {
 .flex-form {
   display: flex;
   column-gap: 3rem;
+  @include respond(phone) {
+    flex-direction: column;
+  }
   &--p1 {
     flex-grow: 1;
   }
@@ -284,6 +287,9 @@ h6 {
   border-radius: 2px;
   &--lessons {
     min-width: 47vw;
+    @include respond(phone) {
+      min-width: 90%;
+    }
   }
   &-img-preview {
     width: 9rem;
@@ -306,6 +312,10 @@ h6 {
     overflow-y: scroll;
     width: 100rem;
     padding-right: 3rem;
+    @include respond(tab-land) {
+      grid-template-columns: 1fr;
+      width: auto;
+    }
   }
   &-title {
     font-family: $font-secondary;
@@ -324,6 +334,10 @@ h6 {
     display: flex;
     justify-content: space-between;
     align-items: end;
+    @include respond(phone) {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
   &-control {
     display: flex;
@@ -360,6 +374,9 @@ h6 {
     font-size: 2rem;
     border-radius: 2px;
     font-family: inherit;
+    @include respond(phone) {
+      margin-top: 3rem;
+    }
   }
   &-secondary-option {
     color: $color-blue;

@@ -1,10 +1,9 @@
 @import "../../styles/Variables.scss";
+@import "../../styles/Mixins.scss";
 
 .modal {
   background: $color-white;
-  // max-width: 55rem;
   min-width: 55rem;
-  // width: 55rem;
   min-height: 20rem;
   display: flex;
   justify-content: center;
@@ -19,6 +18,10 @@
   animation: showModal 1s ease 0.1s forwards;
   transition: all 0.5s ease;
   padding: 3rem;
+  @include respond(phone) {
+    max-width: 40rem;
+    min-width: auto;
+  }
 }
 
 @keyframes showModal {
