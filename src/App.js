@@ -45,14 +45,18 @@ function App() {
           <WorkshopsPage />
         </PrivateRoute>
         <PrivateRoute path="/workshops/:workshopId">
-          {user.type === "Teacher" && <SingleWorkshopPage />}
-          {user.type === "Parent" && !!activeUserProfile && (
-            <SingleWorkshopPage />
-          )}
-          {user.type === "Parent" && !!!activeUserProfile && (
+          {!!activeUserProfile && <SingleWorkshopPage />}
+          {!!!activeUserProfile && (
             <>
               <Redirect to="/workshops" />
-              <MiddlewareRoute type="error" message="Please add kid profile" />
+              <MiddlewareRoute
+                type="error"
+                message={`${
+                  user.type === "Parent"
+                    ? "Please add kid profile"
+                    : "Available for kids only"
+                }`}
+              />
             </>
           )}
         </PrivateRoute>
