@@ -35,6 +35,9 @@
   &--workshop {
     position: relative;
     height: 30rem;
+    @include respond(phone) {
+      height: 50rem;
+    }
   }
   &__data {
     position: absolute;
