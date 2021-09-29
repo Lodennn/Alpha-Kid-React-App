@@ -1,10 +1,15 @@
 @import "../../styles/Variables.scss";
+@import "../../styles/Mixins.scss";
 
 .full-preview {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: 2fr 1fr;
   background-color: $color-white;
+  @include respond(tab-port) {
+    grid-template-columns: 1fr;
+  }
+
   &__image {
     height: 35rem;
   }
@@ -20,6 +25,10 @@
     font-size: 4rem;
     row-gap: 3rem;
     display: grid;
+    @include respond(tab-port) {
+      font-size: 3rem;
+      padding: 2rem;
+    }
     &--name {
       letter-spacing: 2px;
     }

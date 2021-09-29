@@ -34,6 +34,12 @@
 */
 
 @mixin respond($breakpoint) {
+  // 600/16 = 25
+  @if $breakpoint == small-phone {
+    @media screen and (max-width: 25em) {
+      @content;
+    }
+  }
   // 600/16 = 37.5
   @if $breakpoint == phone {
     @media screen and (max-width: 37.5em) {

@@ -16,16 +16,26 @@
   grid-template-rows: min-content 1fr 1fr;
   column-gap: 4rem;
   row-gap: 1rem;
+  @include respond(tab-port) {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .main {
   grid-column: 1 / 2;
   grid-row: 1 / -1;
+  @include respond(tab-port) {
+    grid-column: 1 / -1;
+  }
 }
 
 .section-title {
   grid-column: 2 / -1;
   font-size: 2rem;
+  @include respond(tab-port) {
+    grid-column: 1 / -1;
+  }
 }
 
 .card-main {

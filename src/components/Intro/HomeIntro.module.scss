@@ -11,4 +11,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: max-content max-content;
   gap: 3rem;
+  @include respond(tab-port) {
+    grid-template-columns: 1fr;
+  }
 }
