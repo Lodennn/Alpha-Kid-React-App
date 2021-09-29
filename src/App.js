@@ -52,7 +52,7 @@ function App() {
               <MiddlewareRoute
                 type="error"
                 message={`${
-                  user.type === "Parent"
+                  isLoggedIn && user.type === "Parent"
                     ? "Please add kid profile"
                     : "Available for kids only"
                 }`}
@@ -64,9 +64,11 @@ function App() {
           <GamesPage />
         </PrivateRoute>
         <PrivateRoute path="/games/:gameId">
-          {user.type === "Teacher" && <SingleGamePage />}
-          {user.type === "Parent" && !!activeUserProfile && <SingleGamePage />}
-          {user.type === "Parent" && !!!activeUserProfile && (
+          {isLoggedIn && user.type === "Teacher" && <SingleGamePage />}
+          {isLoggedIn && user.type === "Parent" && !!activeUserProfile && (
+            <SingleGamePage />
+          )}
+          {isLoggedIn && user.type === "Parent" && !!!activeUserProfile && (
             <>
               <Redirect to="/games" />
               <MiddlewareRoute type="error" message="Please add kid profile" />
