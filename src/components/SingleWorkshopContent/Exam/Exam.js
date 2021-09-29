@@ -25,7 +25,11 @@ const Exam = (props) => {
 
   const numberOfQuestions = exam.length;
 
-  const examPassingScore = numberOfQuestions <= 2 ? 50 : 75;
+  const isEven = (num) => num % 2 === 0;
+
+  const examPassingScore = isEven(numberOfQuestions) ? 50 : 65;
+
+  console.log("examPassingScore", examPassingScore);
 
   const reduxDispatch = useDispatch();
 
@@ -55,8 +59,6 @@ const Exam = (props) => {
       if (state.activeQuestionIndex >= action.maxQuestions) {
         return { ...state, activeQuestionIndex: action.maxQuestions };
       }
-      // state.activeQuestionIndex = state.activeQuestionIndex + 1;
-      // return { ...state, activeQuestionIndex: state.activeQuestionIndex };
       return {
         ...state,
         activeQuestionIndex: state["activeQuestionIndex"] + 1,
