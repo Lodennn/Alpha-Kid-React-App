@@ -71,7 +71,11 @@ const SingleVideoIntro = () => {
         });
         return data;
       })
-      .then((data) => setCurrentVideoId(data.video.split("/").at(-1)));
+      .then((data) => {
+        if (data.video) {
+          setCurrentVideoId(data.video.split("/").at(-1));
+        }
+      });
   }, [
     video.video,
     videoId,
