@@ -14,6 +14,7 @@ import CardInfo from "../../UI/CardInfo";
 import LoadingSpinner from "../../UI/LoadingSpinner";
 import Wrapper from "../../UI/Wrapper";
 import Profiles from "./Profiles/Profiles";
+import AccountUppernav from "../../Layout/AccountUppernav/AccountUppernav";
 
 const ParentProfileContent = () => {
   const [showExamSheetModal, setShowExamSheetModal] = useState(false);
@@ -88,6 +89,7 @@ const ParentProfileContent = () => {
 
   return (
     <Fragment>
+      <AccountUppernav />
       <Breadcrumb />
       <div className="container">
         <h2 className="section-title">Dashboard</h2>
@@ -96,7 +98,7 @@ const ParentProfileContent = () => {
         <Wrapper className="profile__workshops">
           <h2 className="heading-secondary">Finished Workshops</h2>
           <Wrapper container="container container-grid-3x pt-xs">
-            {!doneWorkshops.length && (
+            {doneWorkshops.length === 0 && (
               <h2>Your kid didn't join any workshops</h2>
             )}
             {isLoading && <LoadingSpinner />}
@@ -126,7 +128,7 @@ const ParentProfileContent = () => {
         <Wrapper className="profile__games">
           <h2 className="heading-secondary">Played Games</h2>
           <Wrapper container="container container-grid-3x pt-xs">
-            {!doneGames.length && (
+            {doneGames.length === 0 && (
               <h2>{activeUserProfile.name} didn't play any game</h2>
             )}
             {doneGamesLoading && <LoadingSpinner />}
@@ -151,7 +153,7 @@ const ParentProfileContent = () => {
         <Wrapper className="profile__videos">
           <h2 className="heading-secondary">Watched Videos</h2>
           <Wrapper container="container container-grid-3x pt-xs">
-            {!doneVideos.length && (
+            {doneVideos.length === 0 && (
               <h2>{activeUserProfile.name} didn't watch any video</h2>
             )}
             {doneVideosLoading && <LoadingSpinner />}

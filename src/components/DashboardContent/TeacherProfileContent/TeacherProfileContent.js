@@ -15,6 +15,7 @@ import {
   fetchAvailableWorkshops,
   fetchNotAvailableWorkshops,
 } from "../../../lib/api";
+import AccountUppernav from "../../Layout/AccountUppernav/AccountUppernav";
 
 const TeacherProfileContent = () => {
   const [showNewExamModal, setShowNewExamModal] = useState(false);
@@ -80,6 +81,7 @@ const TeacherProfileContent = () => {
 
   return (
     <Fragment>
+      <AccountUppernav />
       <Breadcrumb />
       <div className="container">
         <h2 className="section-title">Dashboard</h2>

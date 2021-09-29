@@ -29,8 +29,6 @@ const Exam = (props) => {
 
   const examPassingScore = isEven(numberOfQuestions) ? 50 : 65;
 
-  console.log("examPassingScore", examPassingScore);
-
   const reduxDispatch = useDispatch();
 
   const initialState = {
@@ -106,7 +104,7 @@ const Exam = (props) => {
       kidName: activeUserProfile.name,
       workshopName: workshop.name,
       result: `${examResult} of ${numberOfQuestions}`,
-      passStatus: kidSuccessStatus ? true : false,
+      passStatus: kidSuccessStatus,
       profileId: activeUserProfile.id,
       workshopId: workshop.id,
     };
@@ -119,13 +117,6 @@ const Exam = (props) => {
           data: { examSheetId: examSheetData.id, ...workshop },
           profileId: activeUserProfile.id,
         });
-        // .then((data) =>
-        //   updateWorkshopRequest({
-        //     collection: "doneWorkshops",
-        //     workshopId: data.id,
-        //     data: { examSheetId: examSheetData.id },
-        //   })
-        // );
       })
       .then((_) =>
         reduxDispatch(
