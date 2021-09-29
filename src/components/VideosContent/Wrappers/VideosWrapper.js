@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import useHttp from "../../../hooks/use-http";
 import { fetchVideos } from "../../../lib/api";
+import LoadingSpinner from "../../UI/LoadingSpinner";
 
 const VideosWrapper = (props) => {
   const {
@@ -36,6 +37,8 @@ const VideosWrapper = (props) => {
             </Link>
           );
         })}
+      {isLoading && <LoadingSpinner />}
+      {videos.length === 0 && <h2>No Videos Yet 😶</h2>}
     </Wrapper>
   );
 };

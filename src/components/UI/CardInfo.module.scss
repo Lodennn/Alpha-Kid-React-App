@@ -1,8 +1,8 @@
 @import "../../styles/Variables.scss";
 
 .card-info {
-  background: $color-white;
-  box-shadow: 0px 1rem 2rem $color-grey-light;
+  background: $color-grey-light-3;
+  box-shadow: 0px 1rem 2rem $color-grey-light-2;
   border-radius: 3px;
   &__image {
     border-top-left-radius: 3px;

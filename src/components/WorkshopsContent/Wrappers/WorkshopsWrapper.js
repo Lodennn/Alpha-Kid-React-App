@@ -6,10 +6,11 @@ import useHttp from "../../../hooks/use-http";
 import { fetchAllWorkshopsFS } from "../../../lib/api";
 import { useDispatch } from "react-redux";
 import { workshopActions } from "../../../store/workshops/workshop-slice";
+import LoadingSpinner from "../../UI/LoadingSpinner";
 
 const WorkshopsWrapper = () => {
   // prettier-ignore
-  const { data: workshops, sendHttpRequest: fetchAllWorkshopsRequest } = useHttp(fetchAllWorkshopsFS);
+  const { data: workshops, sendHttpRequest: fetchAllWorkshopsRequest, isLoading } = useHttp(fetchAllWorkshopsFS);
 
   const dispatch = useDispatch();
 
@@ -35,10 +36,9 @@ const WorkshopsWrapper = () => {
               />
             );
           })}
+        {isLoading && <LoadingSpinner />}
+        {workshops.length === 0 && <h2>No Workshops Yet 😶</h2>}
       </Wrapper>
-      {/* <button type="button" className="btn btn--default btn--load">
-        Load more
-      </button> */}
     </Wrapper>
   );
 };

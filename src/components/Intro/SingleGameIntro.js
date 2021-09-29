@@ -54,7 +54,7 @@ const SingleGameIntro = () => {
   const onPlayerStateChange = (event) => {
     if (event.data === 0) {
       insertDoneGamesRequest({
-        data: game,
+        data: { gameId: game.id, ...game },
         profileId: activeUserProfile.id,
       });
     }

@@ -81,7 +81,6 @@ const ParentProfileContent = () => {
   }, [
     activeUserProfile?.id,
     fetchDoneWorkshopsRequest,
-    showExamSheetModal,
     fetchDoneVideosRequest,
     fetchDoneGamesRequest,
     profiles.length,
@@ -95,8 +94,8 @@ const ParentProfileContent = () => {
         <Profiles />
         {/* Workshops */}
         <Wrapper className="profile__workshops">
-          <h2>Finished Workshops</h2>
-          <Wrapper container="container container-grid-3x">
+          <h2 className="heading-secondary">Finished Workshops</h2>
+          <Wrapper container="container container-grid-3x pt-xs">
             {!doneWorkshops.length && (
               <h2>Your kid didn't join any workshops</h2>
             )}
@@ -107,6 +106,7 @@ const ParentProfileContent = () => {
                 return (
                   <CardInfo
                     key={workshop.id}
+                    type="workshops"
                     data={workshop}
                     onShowModal={showExamSheetModalHandler}
                     matchPath={match.path}
@@ -123,10 +123,12 @@ const ParentProfileContent = () => {
         </Wrapper>
         {/* Workshops */}
         {/* Games */}
-        <Wrapper className="profile__workshops">
-          <h2>Finished Games</h2>
-          <Wrapper container="container container-grid-3x">
-            {!doneGames.length && <h2>Your kid didn't play any game</h2>}
+        <Wrapper className="profile__games">
+          <h2 className="heading-secondary">Played Games</h2>
+          <Wrapper container="container container-grid-3x pt-xs">
+            {!doneGames.length && (
+              <h2>{activeUserProfile.name} didn't play any game</h2>
+            )}
             {doneGamesLoading && <LoadingSpinner />}
             {!doneGamesLoading &&
               doneGames.length > 0 &&
@@ -134,6 +136,7 @@ const ParentProfileContent = () => {
                 return (
                   <CardInfo
                     key={game.id}
+                    type="games"
                     data={game}
                     onShowModal={showExamSheetModalHandler}
                     matchPath={match.path}
@@ -145,10 +148,12 @@ const ParentProfileContent = () => {
         </Wrapper>
         {/* Games */}
         {/* Videos */}
-        <Wrapper className="profile__workshops">
-          <h2>Finished Videos</h2>
-          <Wrapper container="container container-grid-3x">
-            {!doneVideos.length && <h2>Your kid didn't watch any video</h2>}
+        <Wrapper className="profile__videos">
+          <h2 className="heading-secondary">Watched Videos</h2>
+          <Wrapper container="container container-grid-3x pt-xs">
+            {!doneVideos.length && (
+              <h2>{activeUserProfile.name} didn't watch any video</h2>
+            )}
             {doneVideosLoading && <LoadingSpinner />}
             {!doneVideosLoading &&
               doneVideos.length > 0 &&
@@ -156,6 +161,7 @@ const ParentProfileContent = () => {
                 return (
                   <CardInfo
                     key={video.id}
+                    type="videos"
                     data={video}
                     onShowModal={showExamSheetModalHandler}
                     matchPath={match.path}

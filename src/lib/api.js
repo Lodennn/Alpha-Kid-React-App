@@ -372,6 +372,7 @@ export const insertDoneVideos = async (requestData) => {
       image: data.image,
       category: data.category,
       video: data.video,
+      videoId: data.videoId,
       profileId,
     };
     const doneVideoRef = doc(collection(db, "doneVideos"));
@@ -395,6 +396,7 @@ export const insertDoneGames = async (requestData) => {
       image: data.image,
       category: data.category,
       game: data.game,
+      gameId: data.gameId,
       profileId,
     };
     const doneGameRef = doc(collection(db, "doneGames"));

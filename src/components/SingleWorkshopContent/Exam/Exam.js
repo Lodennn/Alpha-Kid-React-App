@@ -55,7 +55,9 @@ const Exam = (props) => {
       if (state.activeQuestionIndex >= action.maxQuestions) {
         return { ...state, activeQuestionIndex: action.maxQuestions };
       }
-      return { ...state, activeQuestionIndex: state["activeQuestionIndex"]++ };
+      state.activeQuestionIndex = state.activeQuestionIndex + 1;
+      // return { ...state, activeQuestionIndex: state["activeQuestionIndex"]++ };
+      return { ...state, activeQuestionIndex: state.activeQuestionIndex };
     }
     return state;
   };
@@ -76,7 +78,6 @@ const Exam = (props) => {
   };
 
   const nextQuestionHandler = () => {
-    console.log("NEXT QUESTION BUTTON");
     dispatch({ type: "NEXT", maxQuestions: numberOfQuestions - 1 });
   };
 

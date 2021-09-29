@@ -138,6 +138,7 @@ const AddExam = (props) => {
           })
         );
         props.onHide();
+        props.examAdded();
       })
       .catch((err) => console.log(err));
   };

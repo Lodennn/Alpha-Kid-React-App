@@ -21,6 +21,8 @@ const TeacherProfileContent = () => {
 
   const [showNewWorkshop, setShowNewWorkshop] = useState(false);
 
+  const [examAdded, setExamAdded] = useState(false);
+
   const showAddNewExamModalHandler = () => {
     setShowNewExamModal(true);
   };
@@ -56,6 +58,10 @@ const TeacherProfileContent = () => {
     sendHttpRequest: getNotAvailableWorkshopsRequest,
   } = useHttp(fetchNotAvailableWorkshops);
 
+  const checkIfModalDone = () => {
+    setExamAdded(true);
+  };
+
   useEffect(() => {
     getAllWorkshopsRequest().then((data) => {
       dispatch(workshopActions.getAllWorkshops(data));
@@ -68,7 +74,7 @@ const TeacherProfileContent = () => {
     getAvailableWorkshopsRequest,
     getNotAvailableWorkshopsRequest,
     showNewWorkshop,
-    showNewExamModal,
+    examAdded,
     userId,
   ]);
 
@@ -105,7 +111,12 @@ const TeacherProfileContent = () => {
         )}
       </div>
       <PrivateRoute path="/profile/teacher/:workshopId">
-        {showNewExamModal && <AddExam onHide={hideAddNewExamModalHandler} />}
+        {showNewExamModal && (
+          <AddExam
+            onHide={hideAddNewExamModalHandler}
+            examAdded={checkIfModalDone}
+          />
+        )}
       </PrivateRoute>
     </Fragment>
   );

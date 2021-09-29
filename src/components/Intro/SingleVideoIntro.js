@@ -55,7 +55,7 @@ const SingleVideoIntro = () => {
   const onPlayerStateChange = (event) => {
     if (event.data === 0) {
       insertDoneVideosRequest({
-        data: video,
+        data: { videoId: video.id, ...video },
         profileId: activeUserProfile.id,
       });
     }

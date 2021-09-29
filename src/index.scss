@@ -107,6 +107,7 @@ button {
   width: 100%;
   max-width: 100%;
 }
+// MARGINs
 .mt-xs {
   margin-top: 1rem;
 }
@@ -152,6 +153,38 @@ button {
 .ml-xl {
   margin-left: 5rem;
 }
+
+// PADDINGs
+.pt-xs {
+  padding-top: 1rem;
+}
+.pt-sm {
+  padding-top: 2rem;
+}
+.pt-md {
+  padding-top: 3rem;
+}
+.pt-lg {
+  padding-top: 4rem;
+}
+.pt-xl {
+  padding-top: 5rem;
+}
+.pb-xs {
+  padding-bottom: 1rem;
+}
+.pb-sm {
+  padding-bottom: 2rem;
+}
+.pb-md {
+  padding-bottom: 3rem;
+}
+.pb-lg {
+  padding-bottom: 4rem;
+}
+.pb-xl {
+  padding-bottom: 5rem;
+}
 .img-rounded {
   border-radius: 50%;
 }
@@ -184,6 +217,10 @@ h6 {
   font-size: 3rem;
 }
 .heading-4 {
+  font-family: $font-secondary;
+  font-size: 3rem;
+}
+.heading-secondary {
   font-family: $font-secondary;
   font-size: 3rem;
 }

@@ -1,10 +1,11 @@
-import Wrapper from "../../UI/Wrapper";
-import Card from "../../UI/Card";
-import classes from "./GamesWrapper.module.scss";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useHttp from "../../../hooks/use-http";
 import { fetchGames } from "../../../lib/api";
-import { useEffect } from "react";
+import Card from "../../UI/Card";
+import Wrapper from "../../UI/Wrapper";
+import LoadingSpinner from "../../UI/LoadingSpinner";
+import classes from "./GamesWrapper.module.scss";
 
 const GamesWrapper = (props) => {
   const {
@@ -37,6 +38,8 @@ const GamesWrapper = (props) => {
             </Link>
           );
         })}
+      {isLoading && <LoadingSpinner />}
+      {games.length === 0 && <h2>No Games Yet 😶</h2>}
     </Wrapper>
   );
 };
