@@ -4,7 +4,7 @@ import classes from "./VideosWrapper.module.scss";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import useHttp from "../../../hooks/use-http";
-import { fetchVideos } from "../../../lib/api";
+import { fetchDataFS } from "../../../lib/api";
 import LoadingSpinner from "../../UI/LoadingSpinner";
 
 const VideosWrapper = (props) => {
@@ -12,10 +12,10 @@ const VideosWrapper = (props) => {
     sendHttpRequest: fetchVideosRequest,
     data: videos,
     isLoading,
-  } = useHttp(fetchVideos);
+  } = useHttp(fetchDataFS);
 
   useEffect(() => {
-    fetchVideosRequest();
+    fetchVideosRequest({ collection: "videos" });
   }, [fetchVideosRequest]);
   return (
     <Wrapper

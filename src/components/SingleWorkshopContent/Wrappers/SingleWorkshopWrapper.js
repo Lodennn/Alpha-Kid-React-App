@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useHttp from "../../../hooks/use-http";
-import { fetchExamFS, updateWorkshop } from "../../../lib/api";
+import { fetchDataFS, updateWorkshop } from "../../../lib/api";
 import Wrapper from "../../UI/Wrapper";
 import Exam from "../Exam/Exam";
 import classes from "./SingleWorkshopWrapper.module.scss";
@@ -15,7 +15,7 @@ const SingleWorkshopWrapper = (props) => {
   const { workshopId } = params;
 
   const { sendHttpRequest: fetchExamRequest, data: exam } =
-    useHttp(fetchExamFS);
+    useHttp(fetchDataFS);
 
   const { sendHttpRequest: updateWorkshopRequest } = useHttp(updateWorkshop);
 
@@ -34,11 +34,6 @@ const SingleWorkshopWrapper = (props) => {
   };
 
   useEffect(() => {
-    // updateWorkshopRequest({
-    //   collection: "workshops",
-    //   workshopId,
-    //   data: { lessons: watchedLessons },
-    // });
     getWatchedLessons(watchedLessons);
   }, [
     updateWorkshopRequest,
@@ -74,7 +69,10 @@ const SingleWorkshopWrapper = (props) => {
   };
 
   useEffect(() => {
-    fetchExamRequest(workshopId);
+    fetchExamRequest({
+      collection: "exams",
+      queries: [{ where: "workshopId", condition: "==", value: workshopId }],
+    });
   }, [fetchExamRequest, workshopId]);
 
   return (

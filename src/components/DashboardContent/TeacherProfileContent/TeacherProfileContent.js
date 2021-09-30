@@ -10,11 +10,7 @@ import Alert from "../../UI/Alert";
 import Breadcrumb from "../../UI/Breadcrumb";
 import Button from "../../UI/Button";
 import AddNewWorkshop from "./AddNewWorkshop/AddNewWorkshop";
-import {
-  fetchAllWorkshopsFS,
-  fetchAvailableWorkshops,
-  fetchNotAvailableWorkshops,
-} from "../../../lib/api";
+import { fetchDataFS } from "../../../lib/api";
 import AccountUppernav from "../../Layout/AccountUppernav/AccountUppernav";
 
 const TeacherProfileContent = () => {
@@ -45,30 +41,41 @@ const TeacherProfileContent = () => {
 
   const dispatch = useDispatch();
 
-  const { sendHttpRequest: getAllWorkshopsRequest } =
-    useHttp(fetchAllWorkshopsFS);
+  const { sendHttpRequest: getAllWorkshopsRequest } = useHttp(fetchDataFS);
 
   const {
     data: availableWorkshops,
     sendHttpRequest: getAvailableWorkshopsRequest,
-  } = useHttp(fetchAvailableWorkshops);
+  } = useHttp(fetchDataFS);
 
   const {
     data: notAvailableWorkshops,
     isLoading: notAvailableWorkshopsLoading,
     sendHttpRequest: getNotAvailableWorkshopsRequest,
-  } = useHttp(fetchNotAvailableWorkshops);
+  } = useHttp(fetchDataFS);
 
   const checkIfModalDone = () => {
     setExamAdded(true);
   };
 
   useEffect(() => {
-    getAllWorkshopsRequest().then((data) => {
+    getAllWorkshopsRequest({ collection: "workshops" }).then((data) => {
       dispatch(workshopActions.getAllWorkshops(data));
     });
-    getAvailableWorkshopsRequest(userId);
-    getNotAvailableWorkshopsRequest(userId);
+    getAvailableWorkshopsRequest({
+      collection: "workshops",
+      queries: [
+        { where: "teacherId", condition: "==", value: userId },
+        { where: "hasExam", condition: "==", value: true },
+      ],
+    });
+    getNotAvailableWorkshopsRequest({
+      collection: "workshops",
+      queries: [
+        { where: "teacherId", condition: "==", value: userId },
+        { where: "hasExam", condition: "==", value: false },
+      ],
+    });
   }, [
     dispatch,
     getAllWorkshopsRequest,

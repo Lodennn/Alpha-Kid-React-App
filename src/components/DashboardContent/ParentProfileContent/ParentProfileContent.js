@@ -2,11 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useRouteMatch } from "react-router";
 import useHttp from "../../../hooks/use-http";
-import {
-  deleteDocFS,
-  fetchDoneWorkshops,
-  fetchDoneData,
-} from "../../../lib/api";
+import { deleteDocFS, fetchDataFS } from "../../../lib/api";
 import PrivateRoute from "../../../Pages/PrivateRoute/PrivateRoute";
 import ExamSheet from "../../../Pages/ExamSheet";
 import Breadcrumb from "../../UI/Breadcrumb";
@@ -27,7 +23,7 @@ const ParentProfileContent = () => {
     data: doneWorkshops,
     isLoading,
     sendHttpRequest: fetchDoneWorkshopsRequest,
-  } = useHttp(fetchDoneWorkshops);
+  } = useHttp(fetchDataFS);
 
   const { sendHttpRequest: deleteDocRequest } = useHttp(deleteDocFS);
 
@@ -35,13 +31,13 @@ const ParentProfileContent = () => {
     data: doneVideos,
     isLoading: doneVideosLoading,
     sendHttpRequest: fetchDoneVideosRequest,
-  } = useHttp(fetchDoneData);
+  } = useHttp(fetchDataFS);
 
   const {
     data: doneGames,
     isLoading: doneGamesLoading,
     sendHttpRequest: fetchDoneGamesRequest,
-  } = useHttp(fetchDoneData);
+  } = useHttp(fetchDataFS);
 
   const match = useRouteMatch();
 
@@ -69,14 +65,23 @@ const ParentProfileContent = () => {
 
   useEffect(() => {
     if (profiles.length > 0) {
-      fetchDoneWorkshopsRequest(activeUserProfile.id);
+      fetchDoneWorkshopsRequest({
+        collection: "doneWorkshops",
+        queries: [
+          { where: "profileId", condition: "==", value: activeUserProfile.id },
+        ],
+      });
       fetchDoneVideosRequest({
         collection: "doneVideos",
-        profileId: activeUserProfile.id,
+        queries: [
+          { where: "profileId", condition: "==", value: activeUserProfile.id },
+        ],
       });
       fetchDoneGamesRequest({
         collection: "doneGames",
-        profileId: activeUserProfile.id,
+        queries: [
+          { where: "profileId", condition: "==", value: activeUserProfile.id },
+        ],
       });
     }
   }, [

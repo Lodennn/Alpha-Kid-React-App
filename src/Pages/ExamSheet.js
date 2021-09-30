@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import useHttp from "../hooks/use-http";
-import { fetchExamSheet } from "../lib/api";
+import { fetchDataFS } from "../lib/api";
 import Modal from "../components/UI/Modal";
 import classes from "./ExamSheet.module.scss";
 import images from "../assets/";
@@ -12,7 +12,7 @@ const ExamSheet = (props) => {
     data: fetchedExamSheet,
     isLoading: examSheetLoading,
     sendHttpRequest: fetchExamSheetRequest,
-  } = useHttp(fetchExamSheet);
+  } = useHttp(fetchDataFS);
 
   const params = useParams();
 
@@ -24,11 +24,19 @@ const ExamSheet = (props) => {
 
   const { user } = useSelector((state) => state.user);
 
-  const { examSheet, kidName, passStatus, result, workshopName } =
-    fetchedExamSheet;
+  if (fetchedExamSheet[0]) {
+    var { examSheet, kidName, passStatus, result, workshopName } =
+      fetchedExamSheet[0];
+  }
 
   useEffect(() => {
-    fetchExamSheetRequest({ profileId, workshopId });
+    fetchExamSheetRequest({
+      collection: "examSheets",
+      queries: [
+        { where: "profileId", condition: "==", value: profileId },
+        { where: "workshopId", condition: "==", value: workshopId },
+      ],
+    });
   }, [fetchExamSheetRequest, profileId, workshopId]);
 
   return (

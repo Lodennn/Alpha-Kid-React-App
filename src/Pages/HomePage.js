@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomeContent from "../components/HomeContent/HomeContent";
 import useHttp from "../hooks/use-http";
-import { fetchAllProfilesFS } from "../lib/api";
+import { fetchDataFS } from "../lib/api";
 import { profilesActions } from "../store/profiles/profiles-slice";
 
 const HomePage = () => {
@@ -14,11 +14,14 @@ const HomePage = () => {
 
   const dispatch = useDispatch();
 
-  const { sendHttpRequest: fetchProfilesRequest } = useHttp(fetchAllProfilesFS);
+  const { sendHttpRequest: fetchProfilesRequest } = useHttp(fetchDataFS);
   // Fetching All Profiles From Firebase
   useEffect(() => {
     if (type === "Parent") {
-      fetchProfilesRequest(userId).then((profiles) => {
+      fetchProfilesRequest({
+        collection: "profiles",
+        queries: [{ where: "parentId", condition: "==", value: userId }],
+      }).then((profiles) => {
         dispatch(profilesActions.getAllProfiles(profiles));
         if (profiles.length > 0 && !!activeUserProfile) {
           dispatch(profilesActions.setActiveProfile(activeUserProfile));

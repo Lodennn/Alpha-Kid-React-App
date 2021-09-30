@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Wrapper from "../../UI/Wrapper";
 import Card from "../../UI/Card";
-import { fetchGames, fetchVideos } from "../../../lib/api";
+import { fetchDataFS } from "../../../lib/api";
 import useHttp from "../../../hooks/use-http";
 import LoadingSpinner from "../../UI/LoadingSpinner";
 import classes from "./HomeWrapper.module.scss";
@@ -11,10 +11,10 @@ const HomeWrapper = () => {
   const [mixedArray, setMixedArray] = useState([]);
 
   const { sendHttpRequest: fetchGamesRequest, isLoading: gamesLoading } =
-    useHttp(fetchGames);
+    useHttp(fetchDataFS);
 
   const { sendHttpRequest: fetchVideosRequest, isLoading: videosLoading } =
-    useHttp(fetchVideos);
+    useHttp(fetchDataFS);
 
   const shuffle = (array) => {
     let currentIndex = array.length;
@@ -31,8 +31,8 @@ const HomeWrapper = () => {
   };
 
   useEffect(() => {
-    fetchGamesRequest().then((games) =>
-      fetchVideosRequest().then((videos) => {
+    fetchGamesRequest({ collection: "games" }).then((games) =>
+      fetchVideosRequest({ collection: "videos" }).then((videos) => {
         const fetchedGames = games.map((game) => ({ type: "game", ...game }));
         const fetchedVideos = videos.map((video) => ({
           type: "video",

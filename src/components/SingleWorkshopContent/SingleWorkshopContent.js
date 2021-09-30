@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useHttp from "../../hooks/use-http";
-import { fetchSingleWorkshopFS, fetchExamSheet } from "../../lib/api";
+import { fetchDocFS, fetchDataFS } from "../../lib/api";
 import MainLayoutWrapper from "../Layout/MainLayoutWrapper";
 import Lessons from "./Lessons/Lessons";
 import LoadingSpinner from "../UI/LoadingSpinner";
@@ -19,21 +19,28 @@ const SingleWorkshopContent = () => {
     isLoading,
     data: workshop,
     sendHttpRequest: fetchSingleWorkshop,
-  } = useHttp(fetchSingleWorkshopFS);
+  } = useHttp(fetchDocFS);
 
   const { data: examSheet, sendHttpRequest: fetchExamSheetRequest } =
-    useHttp(fetchExamSheet);
+    useHttp(fetchDataFS);
 
   const { activeUserProfile } = useSelector((state) => state.profile);
 
   const { id: profileId } = activeUserProfile;
 
   const examHasBeenTaken =
-    examSheet.profileId === profileId && examSheet.workshopId === workshopId;
+    examSheet[0]?.profileId === profileId &&
+    examSheet[0]?.workshopId === workshopId;
 
   useEffect(() => {
-    fetchSingleWorkshop(workshopId);
-    fetchExamSheetRequest({ profileId, workshopId });
+    fetchSingleWorkshop({ collection: "workshops", id: workshopId });
+    fetchExamSheetRequest({
+      collection: "examSheets",
+      queries: [
+        { where: "profileId", condition: "==", value: profileId },
+        { where: "workshopId", condition: "==", value: workshopId },
+      ],
+    });
   }, [workshopId, fetchSingleWorkshop, profileId, fetchExamSheetRequest]);
 
   const { lessons } = workshop;

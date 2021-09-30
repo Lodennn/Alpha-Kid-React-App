@@ -4,11 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useHttp from "../../hooks/use-http";
 import { useParams } from "react-router";
-import {
-  fetchSameCategoryData,
-  fetchSingleGame,
-  insertDataFS,
-} from "../../lib/api";
+import { fetchDataFS, fetchDocFS, insertDataFS } from "../../lib/api";
 import { useSelector } from "react-redux";
 import YouTube from "react-youtube";
 
@@ -20,13 +16,13 @@ const SingleGameIntro = () => {
   const { activeUserProfile } = useSelector((state) => state.profile);
 
   const { data: game, sendHttpRequest: fetchSingleGameRequest } =
-    useHttp(fetchSingleGame);
+    useHttp(fetchDocFS);
 
   const {
     data: sameCategoryGames,
     isLoading: sameCategoryGamesLoading,
     sendHttpRequest: fetchSameCategoryGamesRequest,
-  } = useHttp(fetchSameCategoryData);
+  } = useHttp(fetchDataFS);
 
   const { sendHttpRequest: insertDoneGamesRequest } = useHttp(insertDataFS);
 
@@ -64,13 +60,17 @@ const SingleGameIntro = () => {
   };
 
   useEffect(() => {
-    fetchSingleGameRequest(gameId)
+    fetchSingleGameRequest({ collection: "games", id: gameId })
       .then((data) => {
-        fetchSameCategoryGamesRequest({
-          id: data.id,
-          collection: "games",
-          category: data.category,
-        });
+        fetchSameCategoryGamesRequest(
+          {
+            collection: "games",
+            queries: [
+              { where: "category", condition: "==", value: data.category },
+            ],
+          },
+          { id: data.id }
+        );
         return data;
       })
       .then((data) => setCurrentGameId(data.game.split("/").at(-1)));

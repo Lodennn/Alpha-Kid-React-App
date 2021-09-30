@@ -3,11 +3,7 @@ import classes from "./SingleVideoIntro.module.scss";
 import { Link } from "react-router-dom";
 import useHttp from "../../hooks/use-http";
 import { useParams } from "react-router";
-import {
-  fetchSameCategoryData,
-  fetchSingleVideo,
-  insertDataFS,
-} from "../../lib/api";
+import { fetchDataFS, fetchDocFS, insertDataFS } from "../../lib/api";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { useSelector } from "react-redux";
@@ -20,13 +16,13 @@ const SingleVideoIntro = () => {
   const { videoId } = params;
 
   const { data: video, sendHttpRequest: fetchSingleVideoRequest } =
-    useHttp(fetchSingleVideo);
+    useHttp(fetchDocFS);
 
   const {
     data: sameCategoryVideos,
     isLoading: sameCategoryVideosLoading,
     sendHttpRequest: fetchSameCategoryVideosRequest,
-  } = useHttp(fetchSameCategoryData);
+  } = useHttp(fetchDataFS);
 
   const { sendHttpRequest: insertDoneVideosRequest } = useHttp(insertDataFS);
 
@@ -68,13 +64,17 @@ const SingleVideoIntro = () => {
   };
 
   useEffect(() => {
-    fetchSingleVideoRequest(videoId)
+    fetchSingleVideoRequest({ collection: "videos", id: videoId })
       .then((data) => {
-        fetchSameCategoryVideosRequest({
-          id: data.id,
-          collection: "videos",
-          category: data.category,
-        });
+        fetchSameCategoryVideosRequest(
+          {
+            collection: "videos",
+            queries: [
+              { where: "category", condition: "==", value: data.category },
+            ],
+          },
+          { id: data.id }
+        );
         return data;
       })
       .then((data) => {

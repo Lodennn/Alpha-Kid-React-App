@@ -3,11 +3,7 @@ import { useParams } from "react-router";
 import Form from "../components/UI/Form";
 import Modal from "../components/UI/Modal";
 import useHttp from "../hooks/use-http";
-import {
-  fetchSingleWorkshopFS,
-  insertDataFS,
-  updateWorkshop,
-} from "../lib/api";
+import { fetchDocFS, insertDataFS, updateWorkshop } from "../lib/api";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 import Button from "../components/UI/Button";
 import { FaPlus } from "react-icons/fa";
@@ -43,7 +39,7 @@ const AddExam = (props) => {
     isLoading,
     sendHttpRequest: fetchSingleWorkshop,
     data: singleWorkshop,
-  } = useHttp(fetchSingleWorkshopFS);
+  } = useHttp(fetchDocFS);
 
   const { isLoading: examLoading, sendHttpRequest: insertExamRequest } =
     useHttp(insertDataFS);
@@ -51,7 +47,7 @@ const AddExam = (props) => {
   const { sendHttpRequest: updateWorkshopRequest } = useHttp(updateWorkshop);
 
   useEffect(() => {
-    fetchSingleWorkshop(workshopId);
+    fetchSingleWorkshop({ collection: "workshops", id: workshopId });
   }, [workshopId, fetchSingleWorkshop]);
 
   const firstAnswerChangeHandler = (e) => {

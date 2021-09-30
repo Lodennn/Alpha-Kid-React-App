@@ -1,3 +1,5 @@
+import { query, where } from "firebase/firestore";
+
 export const featureWillBeAdded = false;
 export const generateRandomNumber = () => {
   return Math.trunc(Math.random() * 3) + 1;
@@ -29,10 +31,34 @@ export const clearLocalStorage = () => {
 
 export const transformDataFn = (data, transformedData) => {
   let transformedDataObject = {};
-  console.log("data: ", data, "transformedData: ", transformedData);
   for (let item of transformedData) {
-    console.log(item);
     transformedDataObject[item] = data[`${item}`];
   }
   return transformedDataObject;
 };
+
+export const getQueries = (queriesArray, collectionRef) => {
+  let devQueries;
+  let fetchQuery;
+
+  if (queriesArray) {
+    devQueries = queriesArray.map((q) => where(q.where, q.condition, q.value));
+
+    fetchQuery = query(collectionRef, ...devQueries);
+  } else {
+    fetchQuery = query(collectionRef);
+  }
+  return fetchQuery;
+};
+
+export const getQueryData = (querySnapshot) => {
+  let data = [];
+
+  querySnapshot.forEach((profile) => {
+    data.push(profile.data());
+  });
+
+  return data;
+};
+
+export const isEven = (num) => num % 2 === 0;

@@ -6,7 +6,7 @@ import images from "../../../../assets";
 import AddNewProfile from "./AddNewProfile/AddNewProfile";
 import classes from "./Profiles.module.scss";
 import useHttp from "../../../../hooks/use-http";
-import { fetchAllProfilesFS } from "../../../../lib/api";
+import { fetchDataFS } from "../../../../lib/api";
 import { profilesActions } from "../../../../store/profiles/profiles-slice";
 import LoadingSpinner from "../../../UI/LoadingSpinner";
 
@@ -25,12 +25,15 @@ const Profiles = () => {
   };
 
   const { sendHttpRequest: fetchProfilesRequest, isLoading } =
-    useHttp(fetchAllProfilesFS);
+    useHttp(fetchDataFS);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchProfilesRequest(userId).then((profiles) => {
+    fetchProfilesRequest({
+      collection: "profiles",
+      queries: [{ where: "parentId", condition: "==", value: userId }],
+    }).then((profiles) => {
       if (profiles.length === 0) return;
       dispatch(profilesActions.getAllProfiles(profiles));
       setActiveProfile(activeUserProfile.name);

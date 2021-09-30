@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useHttp from "../../../hooks/use-http";
-import { fetchGames } from "../../../lib/api";
+import { fetchDataFS } from "../../../lib/api";
 import Card from "../../UI/Card";
 import Wrapper from "../../UI/Wrapper";
 import LoadingSpinner from "../../UI/LoadingSpinner";
@@ -12,10 +12,10 @@ const GamesWrapper = (props) => {
     sendHttpRequest: fetchGamesRequest,
     data: games,
     isLoading,
-  } = useHttp(fetchGames);
+  } = useHttp(fetchDataFS);
 
   useEffect(() => {
-    fetchGamesRequest();
+    fetchGamesRequest({ collection: "games" });
   }, [fetchGamesRequest]);
 
   return (

@@ -2,25 +2,26 @@ import React, { useReducer } from "react";
 import { FaChevronCircleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import useHttp from "../../../hooks/use-http";
-import { fetchSingleWorkshopFS, insertDataFS } from "../../../lib/api";
+import { fetchDocFS, insertDataFS } from "../../../lib/api";
 import { snackbarActions } from "../../../store/snackbar/snackbar-slice";
 import classes from "./Exam.module.scss";
+import { isEven } from "../../../helpers";
 
 const Exam = (props) => {
   const { sendHttpRequest: insertExamSheetRequest } = useHttp(insertDataFS);
 
   //prettier-ignore
-  const { sendHttpRequest: getSingleWorkshopRequest } = useHttp(fetchSingleWorkshopFS);
+  const { sendHttpRequest: getSingleWorkshopRequest } = useHttp(fetchDocFS);
 
   const { sendHttpRequest: insertDoneWorkshopRequest } = useHttp(insertDataFS);
 
   const { activeUserProfile } = useSelector((state) => state.profile);
 
-  const { exam, workshop, isExamDone, examHasBeenTaken } = props;
+  const { workshop, isExamDone, examHasBeenTaken } = props;
+
+  const [{ exam }] = props.exam;
 
   const numberOfQuestions = exam.length;
-
-  const isEven = (num) => num % 2 === 0;
 
   const examPassingScore = isEven(numberOfQuestions) ? 50 : 65;
 
@@ -104,7 +105,7 @@ const Exam = (props) => {
       workshopId: workshop.id,
     };
 
-    getSingleWorkshopRequest(workshop.id);
+    getSingleWorkshopRequest({ collection: "workshops", id: workshop.id });
 
     insertExamSheetRequest({ collection: "examSheets", data: fullExamSheet })
       .then((examSheetData) => {
@@ -114,6 +115,7 @@ const Exam = (props) => {
             data: {
               examSheetId: examSheetData.id,
               profileId: activeUserProfile.id,
+              workshopId: workshop.id,
               ...workshop,
             },
           },

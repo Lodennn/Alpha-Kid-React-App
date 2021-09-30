@@ -3,19 +3,19 @@ import Card from "../../UI/Card";
 import classes from "./WorkshopsWrapper.module.scss";
 import { useEffect } from "react";
 import useHttp from "../../../hooks/use-http";
-import { fetchAllWorkshopsFS } from "../../../lib/api";
+import { fetchDataFS } from "../../../lib/api";
 import { useDispatch } from "react-redux";
 import { workshopActions } from "../../../store/workshops/workshop-slice";
 import LoadingSpinner from "../../UI/LoadingSpinner";
 
 const WorkshopsWrapper = () => {
   // prettier-ignore
-  const { data: workshops, sendHttpRequest: fetchAllWorkshopsRequest, isLoading } = useHttp(fetchAllWorkshopsFS);
+  const { data: workshops, sendHttpRequest: fetchAllWorkshopsRequest, isLoading } = useHttp(fetchDataFS);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchAllWorkshopsRequest().then((data) => {
+    fetchAllWorkshopsRequest({ collection: "workshops" }).then((data) => {
       dispatch(workshopActions.getAllWorkshops(data));
     });
   }, [dispatch, fetchAllWorkshopsRequest]);
