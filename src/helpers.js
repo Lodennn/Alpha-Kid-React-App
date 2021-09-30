@@ -26,3 +26,13 @@ export const removeLocalStorageItem = (key) => {
 export const clearLocalStorage = () => {
   return localStorage.clear();
 };
+
+export const transformDataFn = (data, transformedData) => {
+  let transformedDataObject = {};
+  console.log("data: ", data, "transformedData: ", transformedData);
+  for (let item of transformedData) {
+    console.log(item);
+    transformedDataObject[item] = data[`${item}`];
+  }
+  return transformedDataObject;
+};

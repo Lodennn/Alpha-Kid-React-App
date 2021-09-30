@@ -2,22 +2,17 @@ import React, { useReducer } from "react";
 import { FaChevronCircleRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import useHttp from "../../../hooks/use-http";
-import {
-  fetchSingleWorkshopFS,
-  insertExamSheet,
-  insertDoneWorkshops,
-} from "../../../lib/api";
+import { fetchSingleWorkshopFS, insertDataFS } from "../../../lib/api";
 import { snackbarActions } from "../../../store/snackbar/snackbar-slice";
 import classes from "./Exam.module.scss";
 
 const Exam = (props) => {
-  const { sendHttpRequest: insertExamSheetRequest } = useHttp(insertExamSheet);
+  const { sendHttpRequest: insertExamSheetRequest } = useHttp(insertDataFS);
 
   //prettier-ignore
   const { sendHttpRequest: getSingleWorkshopRequest } = useHttp(fetchSingleWorkshopFS);
 
-  const { sendHttpRequest: insertDoneWorkshopRequest } =
-    useHttp(insertDoneWorkshops);
+  const { sendHttpRequest: insertDoneWorkshopRequest } = useHttp(insertDataFS);
 
   const { activeUserProfile } = useSelector((state) => state.profile);
 
@@ -111,12 +106,19 @@ const Exam = (props) => {
 
     getSingleWorkshopRequest(workshop.id);
 
-    insertExamSheetRequest(fullExamSheet)
+    insertExamSheetRequest({ collection: "examSheets", data: fullExamSheet })
       .then((examSheetData) => {
-        insertDoneWorkshopRequest({
-          data: { examSheetId: examSheetData.id, ...workshop },
-          profileId: activeUserProfile.id,
-        });
+        insertDoneWorkshopRequest(
+          {
+            collection: "doneWorkshops",
+            data: {
+              examSheetId: examSheetData.id,
+              profileId: activeUserProfile.id,
+              ...workshop,
+            },
+          },
+          ["image", "lessons", "name", "workshopId", "examSheetId", "profileId"]
+        );
       })
       .then((_) =>
         reduxDispatch(

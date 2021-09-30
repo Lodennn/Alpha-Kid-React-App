@@ -7,7 +7,7 @@ import { useParams } from "react-router";
 import {
   fetchSameCategoryData,
   fetchSingleGame,
-  insertDoneGames,
+  insertDataFS,
 } from "../../lib/api";
 import { useSelector } from "react-redux";
 import YouTube from "react-youtube";
@@ -28,7 +28,7 @@ const SingleGameIntro = () => {
     sendHttpRequest: fetchSameCategoryGamesRequest,
   } = useHttp(fetchSameCategoryData);
 
-  const { sendHttpRequest: insertDoneGamesRequest } = useHttp(insertDoneGames);
+  const { sendHttpRequest: insertDoneGamesRequest } = useHttp(insertDataFS);
 
   const [currentGameId, setCurrentGameId] = useState("");
 
@@ -53,10 +53,13 @@ const SingleGameIntro = () => {
   // when video ends
   const onPlayerStateChange = (event) => {
     if (event.data === 0) {
-      insertDoneGamesRequest({
-        data: { gameId: game.id, ...game },
-        profileId: activeUserProfile.id,
-      });
+      insertDoneGamesRequest(
+        {
+          collection: "doneGames",
+          data: { gameId: game.id, ...game, profileId: activeUserProfile.id },
+        },
+        ["image", "category", "game", "gameId", "profileId"]
+      );
     }
   };
 

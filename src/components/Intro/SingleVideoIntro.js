@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import {
   fetchSameCategoryData,
   fetchSingleVideo,
-  insertDoneVideos,
+  insertDataFS,
 } from "../../lib/api";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
@@ -28,8 +28,7 @@ const SingleVideoIntro = () => {
     sendHttpRequest: fetchSameCategoryVideosRequest,
   } = useHttp(fetchSameCategoryData);
 
-  const { sendHttpRequest: insertDoneVideosRequest } =
-    useHttp(insertDoneVideos);
+  const { sendHttpRequest: insertDoneVideosRequest } = useHttp(insertDataFS);
 
   const [currentVideoId, setCurrentVideoId] = useState("");
 
@@ -54,10 +53,17 @@ const SingleVideoIntro = () => {
   // when video ends
   const onPlayerStateChange = (event) => {
     if (event.data === 0) {
-      insertDoneVideosRequest({
-        data: { videoId: video.id, ...video },
-        profileId: activeUserProfile.id,
-      });
+      insertDoneVideosRequest(
+        {
+          collection: "doneVideos",
+          data: {
+            videoId: video.id,
+            ...video,
+            profileId: activeUserProfile.id,
+          },
+        },
+        ["image", "category", "video", "videoId", "profileId"]
+      );
     }
   };
 

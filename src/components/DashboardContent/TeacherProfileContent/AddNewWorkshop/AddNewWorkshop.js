@@ -6,7 +6,7 @@ import Modal from "../../../UI/Modal";
 import Input from "../../../UI/Input";
 import useInput from "../../../../hooks/use-input";
 import useHttp from "../../../../hooks/use-http";
-import { insertWorkshopFS } from "../../../../lib/api";
+import { insertDataFS } from "../../../../lib/api";
 import { useSelector } from "react-redux";
 import { snackbarActions } from "../../../../store/snackbar/snackbar-slice";
 import { useDispatch } from "react-redux";
@@ -25,7 +25,7 @@ const AddNewWorkshop = (props) => {
 
   const dispatch = useDispatch();
 
-  const { sendHttpRequest: addWorkshopRequest } = useHttp(insertWorkshopFS);
+  const { sendHttpRequest: insertWorkshopRequest } = useHttp(insertDataFS);
 
   const workshopNameValidator = (value) => {
     return value.length > 5;
@@ -86,7 +86,10 @@ const AddNewWorkshop = (props) => {
 
       dispatch(workshopActions.addWorkshop(workshopInsertedData));
 
-      addWorkshopRequest(workshopInsertedData)
+      insertWorkshopRequest({
+        collection: "workshops",
+        data: workshopInsertedData,
+      })
         .then((_) => {
           dispatch(
             snackbarActions.showSnackBar({

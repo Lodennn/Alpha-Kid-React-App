@@ -5,7 +5,7 @@ import Modal from "../components/UI/Modal";
 import useHttp from "../hooks/use-http";
 import {
   fetchSingleWorkshopFS,
-  insertExamFS,
+  insertDataFS,
   updateWorkshop,
 } from "../lib/api";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
@@ -46,7 +46,7 @@ const AddExam = (props) => {
   } = useHttp(fetchSingleWorkshopFS);
 
   const { isLoading: examLoading, sendHttpRequest: insertExamRequest } =
-    useHttp(insertExamFS);
+    useHttp(insertDataFS);
 
   const { sendHttpRequest: updateWorkshopRequest } = useHttp(updateWorkshop);
 
@@ -120,7 +120,10 @@ const AddExam = (props) => {
       return transformedQuestionObject;
     });
 
-    insertExamRequest({ exam: examData, workshopId })
+    insertExamRequest({
+      collection: "exams",
+      data: { exam: examData, workshopId },
+    })
       .then((_) =>
         updateWorkshopRequest({
           collection: "workshops",

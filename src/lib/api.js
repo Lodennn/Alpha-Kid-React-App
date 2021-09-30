@@ -11,7 +11,9 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import db from "./db";
+import { transformDataFn } from "../helpers";
 
+// Auth
 export const addUser = async (requestData) => {
   try {
     const userRef = doc(collection(db, "users"));
@@ -25,6 +27,39 @@ export const addUser = async (requestData) => {
     console.error("Error adding document: ", e);
   }
 };
+
+///////////////////////////////////////////////////////////////////////////////////
+// 1. INSERTING
+export const insertDataFS = async (requestData, transformData = []) => {
+  try {
+    const { collection: coll, data } = requestData;
+
+    const isTransformed = transformData.length > 0;
+
+    const docRef = doc(collection(db, coll));
+
+    let requestDataWithId = {};
+
+    if (isTransformed) {
+      let transformedDataObject = transformDataFn(requestData, transformData);
+      requestDataWithId = {
+        id: docRef.id,
+        ...transformedDataObject,
+      };
+    } else {
+      requestDataWithId = {
+        id: docRef.id,
+        ...data,
+      };
+    }
+
+    await setDoc(docRef, requestDataWithId);
+    return requestDataWithId;
+  } catch (err) {
+    throw err;
+  }
+};
+///////////////////////////////////////////////////////////////////////////////////
 
 export const getUsers = async () => {
   try {
@@ -74,20 +109,6 @@ export const userLogin = async (bodyData) => {
   }
 };
 
-export const insertProfileFS = async (requestData) => {
-  try {
-    const profileRef = doc(collection(db, "profiles"));
-    const requestDataWithId = {
-      id: profileRef.id,
-      ...requestData,
-    };
-    await setDoc(profileRef, requestDataWithId);
-    return requestDataWithId;
-  } catch (err) {
-    throw err;
-  }
-};
-
 export const fetchAllProfilesFS = async (parentId) => {
   try {
     const profilesRef = collection(db, "profiles");
@@ -99,17 +120,6 @@ export const fetchAllProfilesFS = async (parentId) => {
       profilesData.push(profile.data());
     });
     return profilesData;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const insertWorkshopFS = async (requestData) => {
-  try {
-    const workshopRef = doc(collection(db, "workshops"));
-    const workshopDataWithId = { id: workshopRef.id, ...requestData };
-    await setDoc(workshopRef, workshopDataWithId);
-    return workshopDataWithId;
   } catch (err) {
     throw err;
   }
@@ -172,17 +182,6 @@ export const fetchSingleWorkshopFS = async (workshopId) => {
   }
 };
 
-export const insertExamFS = async (requestData) => {
-  try {
-    const examRef = doc(collection(db, "exams"));
-    const examDataWithId = { id: examRef.id, ...requestData };
-    await setDoc(examRef, examDataWithId);
-    return examDataWithId;
-  } catch (err) {
-    throw err;
-  }
-};
-
 export const updateWorkshop = async (requestData) => {
   try {
     const { collection: coll, workshopId, data } = requestData;
@@ -209,17 +208,6 @@ export const fetchExamFS = async (workshopId) => {
   }
 };
 
-export const insertExamSheet = async (requestData) => {
-  try {
-    const examSheetRef = doc(collection(db, "examSheets"));
-    const examSheetDataWithId = { id: examSheetRef.id, ...requestData };
-    await setDoc(examSheetRef, examSheetDataWithId);
-    return examSheetDataWithId;
-  } catch (err) {
-    throw err;
-  }
-};
-
 export const fetchExamSheet = async (requestData) => {
   try {
     const { profileId, workshopId } = requestData;
@@ -235,31 +223,6 @@ export const fetchExamSheet = async (requestData) => {
       examSheetData = sheet.data();
     });
     return examSheetData;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const insertDoneWorkshops = async (requestData) => {
-  try {
-    const { profileId, data } = requestData;
-
-    const workshopData = {
-      image: data.image,
-      lessons: data.lessons,
-      name: data.name,
-      workshopId: data.id,
-      examSheetId: data.examSheetId,
-      profileId,
-    };
-    const doneWorkshopRef = doc(collection(db, "doneWorkshops"));
-
-    const doneWorkshopDataWithId = {
-      id: doneWorkshopRef.id,
-      ...workshopData,
-    };
-    await setDoc(doneWorkshopRef, doneWorkshopDataWithId);
-    return doneWorkshopDataWithId;
   } catch (err) {
     throw err;
   }
@@ -359,54 +322,6 @@ export const deleteDoneWorkshopFS = async (requestData) => {
     const { doneWorkshopId } = requestData;
     const doneWorkshopRef = collection(db, "doneWorkshops", doneWorkshopId);
     await deleteDoc(doneWorkshopRef);
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const insertDoneVideos = async (requestData) => {
-  try {
-    const { profileId, data } = requestData;
-
-    const videoData = {
-      image: data.image,
-      category: data.category,
-      video: data.video,
-      videoId: data.videoId,
-      profileId,
-    };
-    const doneVideoRef = doc(collection(db, "doneVideos"));
-
-    const doneVideoDataWithId = {
-      id: doneVideoRef.id,
-      ...videoData,
-    };
-    await setDoc(doneVideoRef, doneVideoDataWithId);
-    return doneVideoDataWithId;
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const insertDoneGames = async (requestData) => {
-  try {
-    const { profileId, data } = requestData;
-
-    const gameData = {
-      image: data.image,
-      category: data.category,
-      game: data.game,
-      gameId: data.gameId,
-      profileId,
-    };
-    const doneGameRef = doc(collection(db, "doneGames"));
-
-    const doneGameDataWithId = {
-      id: doneGameRef.id,
-      ...gameData,
-    };
-    await setDoc(doneGameRef, doneGameDataWithId);
-    return doneGameDataWithId;
   } catch (err) {
     throw err;
   }

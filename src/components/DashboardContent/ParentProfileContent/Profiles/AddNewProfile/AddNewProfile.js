@@ -5,7 +5,7 @@ import Modal from "../../../../UI/Modal";
 import images from "../../../../../assets";
 import useInput from "../../../../../hooks/use-input";
 import { generateRandomNumber } from "../../../../../helpers";
-import { insertProfileFS } from "../../../../../lib/api";
+import { insertDataFS } from "../../../../../lib/api";
 import useHttp from "../../../../../hooks/use-http";
 import { useSelector } from "react-redux";
 import { profilesActions } from "../../../../../store/profiles/profiles-slice";
@@ -21,8 +21,8 @@ const AddNewProfile = (props) => {
 
   const dispatch = useDispatch();
 
-  const { sendHttpRequest: sendProfileRequest, isLoading } =
-    useHttp(insertProfileFS);
+  const { sendHttpRequest: insertProfileRequest, isLoading } =
+    useHttp(insertDataFS);
 
   const randomUserProfilePicIndex = useMemo(() => generateRandomNumber(), []);
 
@@ -56,7 +56,7 @@ const AddNewProfile = (props) => {
         gender: checkedInput,
         image: userProfileImagePath,
       };
-      sendProfileRequest(profileData)
+      insertProfileRequest({ collection: "profiles", data: profileData })
         .then((data) => {
           props.changeActiveUserProfile(data);
           dispatch(profilesActions.addProfile(data));
