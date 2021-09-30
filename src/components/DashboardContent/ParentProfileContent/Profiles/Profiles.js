@@ -21,7 +21,7 @@ const Profiles = () => {
 
   const changeActiveProfile = (profile) => {
     dispatch(profilesActions.setActiveProfile(profile));
-    setActiveProfile(profile.name);
+    setActiveProfile(profile.id);
   };
 
   const { sendHttpRequest: fetchProfilesRequest, isLoading } =
@@ -36,7 +36,7 @@ const Profiles = () => {
     }).then((profiles) => {
       if (profiles.length === 0) return;
       dispatch(profilesActions.getAllProfiles(profiles));
-      setActiveProfile(activeUserProfile.name);
+      setActiveProfile(activeUserProfile.id);
     });
   }, [userId, setActiveProfile, dispatch, fetchProfilesRequest]);
 
@@ -65,7 +65,7 @@ const Profiles = () => {
               return (
                 <li
                   key={index}
-                  className={classes["profiles__item"]}
+                  className={`${classes["profiles__item"]} mb-xs`}
                   onClick={changeActiveProfile.bind(null, profile)}
                 >
                   <div className={classes["profiles__image"]}>
@@ -73,12 +73,13 @@ const Profiles = () => {
                       src={profile.image}
                       alt={profile.name}
                       className={`${classes["profiles__img"]} ${
-                        activeProfile === profile.name
+                        activeProfile === profile.id
                           ? classes["profiles__img--active"]
                           : null
                       } img-fluid img-rounded`}
                     />
                   </div>
+                  <h3 className="text-center">{profile.name}</h3>
                 </li>
               );
             })}
