@@ -20,9 +20,9 @@ html {
   @include respond(phone) {
     font-size: 37.5%; // 1rem = 6px : 6 / 16 = (0.375) * 100 = 37.5%
   }
-  @include respond(small-phone) {
-    font-size: 25%; // 1rem = 4px : 4 / 16 = (0.25) * 100 = 25%
-  }
+  // @include respond(small-phone) {
+  //   font-size: 25%; // 1rem = 4px : 4 / 16 = (0.25) * 100 = 25%
+  // }
   @include respond(big-desktop) {
     font-size: 75%; // 1rem = 12px : 0.75*100 = 75%
   }

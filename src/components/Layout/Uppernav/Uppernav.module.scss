@@ -1,9 +1,13 @@
 @import "../../../styles/Variables.scss";
+@import "../../../styles/Mixins.scss";
 
 .uppernav {
   width: 100%;
   height: 3rem;
   display: flex;
+  @include respond(phone) {
+    height: 5rem;
+  }
   &__style {
     flex: 1;
     &--1 {

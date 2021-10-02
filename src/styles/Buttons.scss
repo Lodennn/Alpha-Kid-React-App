@@ -16,7 +16,7 @@
   line-height: 1.6;
   padding: 1rem 2rem;
   @include respond(small-phone) {
-    font-size: 1rem;
+    // font-size: 1rem;
     padding: 1rem 3rem !important;
     justify-self: center;
   }

@@ -9,11 +9,11 @@
     column-gap: 2.5rem;
   }
   &__item {
-    position: relative;
   }
   &__image {
     width: 10rem;
     height: 10rem;
+    position: relative;
   }
   &__img {
     border: 0.4rem solid rgba($color-primary-light, 0.2);

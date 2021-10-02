@@ -1,4 +1,5 @@
 @import "../../../styles/Variables.scss";
+@import "../../../styles/Mixins.scss";
 
 .account-uppernav {
   width: 100%;
@@ -34,6 +35,9 @@
 
 .user-links {
   position: relative;
+  @include respond(phone) {
+    font-size: 2.5rem;
+  }
   &__list {
     position: absolute;
     top: 3rem;
@@ -43,6 +47,10 @@
     font-size: 1.5rem;
     box-shadow: 0 0 2rem rgba($color-grey-dark, 0.1);
     z-index: $zIndex-5;
+    @include respond(phone) {
+      font-size: 2.5rem;
+      top: 4rem;
+    }
   }
   &__item {
     &:not(:last-child) {

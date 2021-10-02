@@ -16,6 +16,7 @@ const HomeWrapper = () => {
   const { sendHttpRequest: fetchVideosRequest, isLoading: videosLoading } =
     useHttp(fetchDataFS);
 
+  // REFACTOR THIS
   const shuffle = (array) => {
     let currentIndex = array.length;
     let randomIndex;

@@ -10,20 +10,20 @@
   @include respond(tab-land) {
     padding-inline: 5rem;
   }
-  @include respond(phone) {
+  @include respond(small-phone) {
     flex-direction: column;
     height: auto;
     padding-block: 5rem;
   }
   &__list {
-    @include respond(phone) {
+    @include respond(small-phone) {
       margin-top: 3rem;
       flex-direction: column;
     }
   }
   &__item {
     margin-right: 1.5rem;
-    @include respond(phone) {
+    @include respond(small-phone) {
       &:not(:first-of-type) {
         margin-top: 2rem;
       }

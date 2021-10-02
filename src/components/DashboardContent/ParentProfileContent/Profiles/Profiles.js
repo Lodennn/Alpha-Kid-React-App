@@ -94,10 +94,10 @@ const Profiles = () => {
                 alt="add new profile"
                 className={`${classes["profiles__img"]} img-fluid img-rounded`}
               />
+              <span className={classes["profiles__icon"]}>
+                <FaPlus />
+              </span>
             </div>
-            <span className={classes["profiles__icon"]}>
-              <FaPlus />
-            </span>
           </li>
         </ul>
       </div>
