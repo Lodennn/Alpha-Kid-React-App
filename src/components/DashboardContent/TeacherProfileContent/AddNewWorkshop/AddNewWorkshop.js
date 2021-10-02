@@ -25,7 +25,10 @@ const AddNewWorkshop = (props) => {
 
   const dispatch = useDispatch();
 
-  const { sendHttpRequest: insertWorkshopRequest } = useHttp(insertDataFS);
+  const {
+    isLoading: insertWorkshopLoading,
+    sendHttpRequest: insertWorkshopRequest,
+  } = useHttp(insertDataFS);
 
   const workshopNameValidator = (value) => {
     return value.length > 5;
@@ -178,8 +181,14 @@ const AddNewWorkshop = (props) => {
               onClick={addNewLessonHandler}
             />
           </div>
-          <button type="submit" className="form-submit" id="add-new-profile">
-            Add
+          <button
+            type="submit"
+            className="form-submit"
+            id="add-new-profile"
+            disabled={insertWorkshopLoading}
+          >
+            {!insertWorkshopLoading && "Add"}
+            {insertWorkshopLoading && "Adding"}
           </button>
         </div>
       </Form>

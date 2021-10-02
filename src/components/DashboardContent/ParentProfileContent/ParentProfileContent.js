@@ -104,7 +104,7 @@ const ParentProfileContent = () => {
           <h2 className="heading-secondary">Finished Workshops</h2>
           <Wrapper container="container container-grid-3x pt-xs">
             {doneWorkshops.length === 0 && (
-              <h2>Your kid didn't join any workshops</h2>
+              <h2>{activeUserProfile.name} didn't join any workshops</h2>
             )}
             {isLoading && <LoadingSpinner />}
             {!isLoading &&

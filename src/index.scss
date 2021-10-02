@@ -260,6 +260,13 @@ h6 {
     font-weight: bold;
   }
 }
+.no-data {
+  font-size: 3rem;
+  color: $color-white;
+  & > * {
+    color: $color-white;
+  }
+}
 /////////////////////////////////////////// Global Components
 
 .youtube-wrapper {
