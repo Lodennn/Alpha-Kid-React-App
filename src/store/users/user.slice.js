@@ -28,31 +28,34 @@ const userSlice = createSlice({
       state.user = action.payload.user;
       state.idToken = action.payload.idToken;
       state.isLoggedIn = state.user && !!state.idToken;
-      persistLocalStorage("token", action.payload.idToken, false);
-      persistLocalStorage("activeUser", action.payload.user);
     },
     signup(state, action) {
       state.users = state.users.concat(action.payload);
       state.user = action.payload.user;
       state.idToken = action.payload.idToken;
       state.isLoggedIn = state.user && !!state.idToken;
-      persistLocalStorage("token", state.idToken, false);
-      persistLocalStorage("activeUser", action.payload.user);
     },
     logout(state, action) {
       state.idToken = null;
       state.user = {};
       state.isLoggedIn = false;
-      clearLocalStorage();
     },
   },
 });
 
 export const userActions = userSlice.actions;
 
+export const userLoginAction = (userData) => (dispatch) => {
+  dispatch(userActions.login(userData));
+  persistLocalStorage("token", userData.idToken, false);
+  persistLocalStorage("activeUser", userData.user);
+};
+
 export const insertUserData = (userData) => (dispatch) => {
   addUser(userData).then((data) => {
     dispatch(userActions.signup({ user: data.user, idToken: data.idToken }));
+    persistLocalStorage("token", data.idToken, false);
+    persistLocalStorage("activeUser", data.user);
   });
 };
 
@@ -60,6 +63,11 @@ export const fetchAllUsers = () => (dispatch) => {
   getUsers().then((data) => {
     dispatch(userActions.getAllUsersData(data));
   });
+};
+
+export const userLogoutAction = () => (dispatch) => {
+  dispatch(userActions.logout());
+  clearLocalStorage();
 };
 
 export default userSlice.reducer;

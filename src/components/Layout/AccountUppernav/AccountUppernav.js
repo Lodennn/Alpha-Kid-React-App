@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FaBell, FaShoppingCart, FaUser, FaChevronDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../../../store/users/user.slice";
+import { userLogoutAction } from "../../../store/users/user.slice";
 import UserLinks from "./UserLinks/UserLinks";
 import Notifications from "./Notifications/Notifications";
 import classes from "./AccountUppernav.module.scss";
@@ -17,7 +17,7 @@ const AccountUppernav = (props) => {
   const history = useHistory();
 
   const userLogoutHandler = () => {
-    dispatch(userActions.logout());
+    dispatch(userLogoutAction());
     history.push("/");
   };
 

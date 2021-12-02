@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomeContent from "../components/HomeContent/HomeContent";
 import useHttp from "../hooks/use-http";

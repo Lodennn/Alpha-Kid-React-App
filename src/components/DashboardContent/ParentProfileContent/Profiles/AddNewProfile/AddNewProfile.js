@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import {
   addProfileToStorage,
   changeActiveProfileFromStorage,
-  profilesActions,
 } from "../../../../../store/profiles/profiles-slice";
 import { useDispatch } from "react-redux";
 import { snackbarActions } from "../../../../../store/snackbar/snackbar-slice";

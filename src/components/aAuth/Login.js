@@ -6,7 +6,7 @@ import useHttp from "../../hooks/use-http";
 import useInput from "../../hooks/use-input";
 import { userLogin } from "../../lib/api";
 import { snackbarActions } from "../../store/snackbar/snackbar-slice";
-import { userActions } from "../../store/users/user.slice";
+import { userLoginAction } from "../../store/users/user.slice";
 import Form from "../UI/Form";
 import Input from "../UI/Input";
 import classes from "./Auth.module.scss";
@@ -64,7 +64,7 @@ const Login = () => {
             return user.user.email === data.email;
           });
           if (userData) {
-            dispatch(userActions.login(userData));
+            dispatch(userLoginAction(userData));
           } else {
             throw new Error("User not found!");
           }

@@ -36,7 +36,6 @@ export const addProfileToStorage = (profile) => (dispatch) => {
 
 export const changeActiveProfileFromStorage = (profile) => (dispatch) => {
   dispatch(profilesActions.setActiveProfile(profile));
-  console.log("changeActiveProfileFromStorage: ", profile);
   persistLocalStorage("activeUserProfile", profile);
 };
 
