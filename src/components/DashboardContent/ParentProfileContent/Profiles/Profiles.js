@@ -7,7 +7,10 @@ import AddNewProfile from "./AddNewProfile/AddNewProfile";
 import classes from "./Profiles.module.scss";
 import useHttp from "../../../../hooks/use-http";
 import { fetchDataFS } from "../../../../lib/api";
-import { profilesActions } from "../../../../store/profiles/profiles-slice";
+import {
+  changeActiveProfileFromStorage,
+  profilesActions,
+} from "../../../../store/profiles/profiles-slice";
 import LoadingSpinner from "../../../UI/LoadingSpinner";
 
 const Profiles = () => {
@@ -20,7 +23,7 @@ const Profiles = () => {
   const [activeProfile, setActiveProfile] = useState("");
 
   const changeActiveProfile = (profile) => {
-    dispatch(profilesActions.setActiveProfile(profile));
+    dispatch(changeActiveProfileFromStorage(profile));
     setActiveProfile(profile.id);
   };
 

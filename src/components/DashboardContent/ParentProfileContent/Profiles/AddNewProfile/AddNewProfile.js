@@ -8,7 +8,11 @@ import { generateRandomNumber } from "../../../../../helpers";
 import { insertDataFS } from "../../../../../lib/api";
 import useHttp from "../../../../../hooks/use-http";
 import { useSelector } from "react-redux";
-import { profilesActions } from "../../../../../store/profiles/profiles-slice";
+import {
+  addProfileToStorage,
+  changeActiveProfileFromStorage,
+  profilesActions,
+} from "../../../../../store/profiles/profiles-slice";
 import { useDispatch } from "react-redux";
 import { snackbarActions } from "../../../../../store/snackbar/snackbar-slice";
 
@@ -59,8 +63,8 @@ const AddNewProfile = (props) => {
       insertProfileRequest({ collection: "profiles", data: profileData })
         .then((data) => {
           props.changeActiveUserProfile(data);
-          dispatch(profilesActions.addProfile(data));
-          dispatch(profilesActions.setActiveProfile(data));
+          dispatch(addProfileToStorage(data));
+          dispatch(changeActiveProfileFromStorage(data));
           dispatch(
             snackbarActions.showSnackBar({
               type: "success",

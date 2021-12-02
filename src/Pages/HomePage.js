@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import HomeContent from "../components/HomeContent/HomeContent";
 import useHttp from "../hooks/use-http";
 import { fetchDataFS } from "../lib/api";
-import { profilesActions } from "../store/profiles/profiles-slice";
+import {
+  changeActiveProfileFromStorage,
+  profilesActions,
+} from "../store/profiles/profiles-slice";
 
 const HomePage = () => {
   const { activeUserProfile } = useSelector((state) => state.profile);
@@ -24,10 +27,10 @@ const HomePage = () => {
       }).then((profiles) => {
         dispatch(profilesActions.getAllProfiles(profiles));
         if (profiles.length > 0 && !!activeUserProfile) {
-          dispatch(profilesActions.setActiveProfile(activeUserProfile));
+          dispatch(changeActiveProfileFromStorage(activeUserProfile));
         }
         if (profiles.length > 0 && !!!activeUserProfile) {
-          dispatch(profilesActions.setActiveProfile(profiles[0]));
+          dispatch(changeActiveProfileFromStorage(profiles[0]));
         }
       });
     }
