@@ -69,7 +69,7 @@ export default {
   profiles: {
     profileM1: `https://www.shareicon.net/data/256x256/2015/09/24/106432_user_512x512.png`,
     profileM2: `https://www.shareicon.net/data/256x256/2016/05/24/770117_people_512x512.png`,
-    profileM3: `http://mymbs.co.id/public/upload/image/user/user.png`,
+    profileM3: `https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png`,
     profileF1: `https://i.postimg.cc/C59MQnBK/girl.png`,
     profileF2: `https://avatarfiles.alphacoders.com/791/79102.png`,
     profileF3: `https://cdn.iconscout.com/icon/free/png-256/avatar-1659507-1410029.png`,
